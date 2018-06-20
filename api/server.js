@@ -10,13 +10,10 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
-app.get('/', (req, res) => {
-        res.send('Hello world\n');
-    });
 
-app.get('/aap', (req, res) => {
-    res.send('Hello world aap2\n');
-    client.publish('wmt6/command/eco');
+app.get('/command/:id/:cmd', (req, res) => {
+    res.send('OK');
+    client.publish(req.params.id + '/command', req.params.cmd);
 });
     
 app.listen(PORT, HOST);
@@ -32,5 +29,4 @@ client.on('message', function (topic, message) {
   // message is Buffer
   console.log("received message")
   console.log(message.toString())
-  //client.end()
 })

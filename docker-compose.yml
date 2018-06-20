@@ -8,6 +8,7 @@ services:
     ports: 
       - "1883:1883"
   api:
+    #image: api:v2
     build: ./api
     command: nodemon server.js
     volumes:
