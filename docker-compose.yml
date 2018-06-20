@@ -8,13 +8,14 @@ services:
     ports: 
       - "1883:1883"
   api:
+    image: philipsen/api
     build: ./api
     command: nodemon server.js
     volumes:
       - ./api:/app
-    ports:
-      - "8080:8080"
-      - "5858:5858"
+    #ports:
+      #- "8080:8080"
+      #- "5858:5858"
     networks:
       - front
   web:
