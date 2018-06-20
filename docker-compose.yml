@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  pubsub:
+    image: eclipse-mosquitto
+    networks: 
+      - "front"
+    ports: 
+      - "1883:1883"
+networks: 
+  front:
