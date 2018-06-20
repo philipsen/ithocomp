@@ -11,14 +11,18 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 
-app.get('/command/:id/:cmd', (req, res) => {
+app.get('/api/command/:house/:room/:cmd', (req, res) => {
     res.send('OK');
-    client.publish(req.params.id + '/command', req.params.cmd);
+    client.publish(req.params.house + '/' + req.params.room + '/command', req.params.cmd);
 });
     
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
+app.use(function(req, res){
+  console.log("here", req);
+  res.send(404);
+});
 
 client.on('connect', function () {
   client.subscribe('presence')

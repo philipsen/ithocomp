@@ -8,7 +8,6 @@ services:
     ports: 
       - "1883:1883"
   api:
-    #image: api:v2
     build: ./api
     command: nodemon server.js
     volumes:
@@ -23,7 +22,8 @@ services:
     ports: 
       - "80:80"
     volumes:
-      - "./web:/usr/share/nginx/html"
+      - "./web/html:/usr/share/nginx/html"
+      - "./web/nginx:/etc/nginx"
     networks: 
       - front
 networks: 
