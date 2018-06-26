@@ -19,10 +19,10 @@ app.get('/api/command/:house/:room/:cmd', (req, res) => {
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
-app.use(function(req, res){
-  console.log("here", req);
-  res.send(404);
-});
+//app.use(function(req, res){
+//  console.log("here", req);
+//  res.send(404);
+//});
 
 client.on('connect', function () {
   client.subscribe('presence')
