@@ -9,6 +9,7 @@ services:
       - "1883:1883"
   api:
     image: philipsen/api
+    build: ./api
     command: nodemon server.js
     volumes:
       - ./api:/app

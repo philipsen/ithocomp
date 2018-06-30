@@ -13,7 +13,7 @@ const app = express();
 
 app.get('/api/command/:house/:room/:cmd', (req, res) => {
     res.send('OK');
-    client.publish(req.params.house + '/' + req.params.room + '/command', req.params.cmd);
+    client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
 });
     
 app.listen(PORT, HOST);
