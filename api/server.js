@@ -1,7 +1,7 @@
 'use strict';
 
-const mqtt    = require('mqtt')
-const client  = mqtt.connect('mqtt://pubsub')
+const mqtt = require('mqtt')
+const client = mqtt.connect('mqtt://pubsub')
 const express = require('express');
 
 // Constants
@@ -12,25 +12,50 @@ const HOST = '0.0.0.0';
 const app = express();
 
 app.get('/api/command/:house/:room/:cmd', (req, res) => {
-    res.send('OK');
-    client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
+  console.log('received: ', req);
+  res.send('OK');
+  client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
 });
-    
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
-//app.use(function(req, res){
-//  console.log("here", req);
-//  res.send(404);
-//});
+app.use(function (req, res) {
+  console.log("here 2");
+  res.send(404);
+});
 
 client.on('connect', function () {
-  client.subscribe('presence')
-  client.publish('presence', 'Hello mqtt')
-})
- 
+  client.subscribe('itho/log/+');
+  client.publish('presence', 'Helo mqtt');
+});
+
+var mongoose = require("mongoose");
+var db = require('./model/db');
+console.log('here');
+
 client.on('message', function (topic, message) {
-  // message is Buffer
-  console.log("received message")
-  console.log(message.toString())
-})
+    console.log("received message4:", topic.toString(), message.toString());
+    var house = topic.toString().split('/')[2];
+    var param = message.toString().split('/')[0];
+    var value = message.toString().split('/')[1];
+    console.log('house', house, param, value);
+
+    
+    var House = mongoose.model('House');
+    House.update({ name: house }, {name: house, ip: value}, { upsert: true }, function (err, raw) {
+      console.log('in update');
+      if (err) return console.error(err);
+      if (!!raw && raw.upserted) {
+        console.log('Created instance', raw)
+      } else {
+        console.log('Found existing instance', raw)
+      }
+      console.log('n = ', raw.n);
+    });
+
+    console.log('done');
+  });
+
+
+
