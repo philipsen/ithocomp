@@ -10,7 +10,7 @@ import { House } from '../house';
 })
 export class HouseDetailComponent implements OnInit {
 
-  house: House;
+  public house: House;
   
   constructor(
     private housesService: HousesService,

@@ -24,15 +24,25 @@ app.get('/api/command/:house/:room/:cmd', (req, res) => {
 });
 
 app.get('/api/houses', (req, res) => {
-  console.log('api get houses');
-  var houses = [];
   var House = mongoose.model('House');
   House.find(function(err, houses) {
     if (err) return console.error(err);
-    //console.log(houses);
     res.send(JSON.stringify(houses));
   });
-  //res.send(JSON.stringify(houses));
+});
+
+app.get('/api/house/:name', (req, res) => {
+  //console.log('here', req);
+  //res.send(OK);
+  var name = req.params.name;
+  console.log('api get house ', name);
+  var House = mongoose.model('House');
+  House.find({ name: name }, function(err, house) {
+    if (err) return console.error(err);
+    console.log('house = ', house);
+    res.send(JSON.stringify(house[0]));
+  });
+  //res.send('OK');
 });
 
 app.listen(PORT, HOST);
