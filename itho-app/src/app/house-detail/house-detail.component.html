@@ -1,6 +1,7 @@
-<h2>House: {{ house.name }}</h2>
+<h2>{{ !!house && house.name }}</h2>
 
   <ul>
-      <li>{{house.name}}</li>
-      <li>{{house.ip}}</li>
+      <li>{{ !!house && house.name }}</li>
+      <li>{{ !!house && house.ip }}</li>
     </ul>
+
