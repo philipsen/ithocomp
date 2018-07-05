@@ -8,16 +8,24 @@ import { HouseComponent } from './house/house.component';
 //import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { HttpClientModule }    from '@angular/common/http';
+import { HouseDetailComponent } from './house-detail/house-detail.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HousesListComponent,
-    HouseComponent
+    HouseComponent,
+    HouseDetailComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    NgbModule.forRoot()
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
