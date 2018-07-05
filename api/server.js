@@ -11,19 +11,37 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/api/command/:house/:room/:cmd', (req, res) => {
-  console.log('received: ', req);
+  // console.log('received: ', req);
   res.send('OK');
   client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
+});
+
+app.get('/api/houses', (req, res) => {
+  console.log('api get houses');
+  var houses = [];
+  var House = mongoose.model('House');
+  House.find(function(err, houses) {
+    if (err) return console.error(err);
+    //console.log(houses);
+    res.send(JSON.stringify(houses));
+  });
+  //res.send(JSON.stringify(houses));
 });
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
-app.use(function (req, res) {
-  console.log("here 2");
-  res.send(404);
-});
+// app.use(function (req, res) {
+//   console.log("here 2");
+//   res.send(404);
+// });
 
 client.on('connect', function () {
   client.subscribe('itho/log/+');
@@ -41,7 +59,6 @@ client.on('message', function (topic, message) {
     var value = message.toString().split('/')[1];
     console.log('house', house, param, value);
 
-    
     var House = mongoose.model('House');
     House.update({ name: house }, {name: house, ip: value}, { upsert: true }, function (err, raw) {
       console.log('in update');
