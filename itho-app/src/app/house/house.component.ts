@@ -6,6 +6,7 @@ import { House } from '../house';
   templateUrl: './house.component.html',
   styleUrls: ['./house.component.css']
 })
+
 export class HouseComponent implements OnInit {
   house: House = {
     name: 'wmt6',

@@ -1,7 +1,35 @@
-<h2>{{ !!house && house.name }}</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Itho Remote {{ house.name }} </h2>
+      <h3>local ip: {{ house.ip }}</h3>
+    </div>
+  </div>
+  <div class="row">
 
-  <ul>
-      <li>{{ !!house && house.name }}</li>
-      <li>{{ !!house && house.ip }}</li>
-    </ul>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Keuken</h5>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('k', 'eco')">Eco</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'k', 'comfort')">Comfort</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'k', 'cook1')">Koken 30 min</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'k', 'cook2')">Koken 60 min</button>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">WC beneden</h5>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'b', 'timer1')">Ventileren 10</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'b', 'timer2')">Ventileren 20</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'b', 'timer3')">Ventileren 30 </button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'b', 'auto1')">auto 1 </button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('wmt6', 'b', 'auto2')">auto 2 </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,7 +25,8 @@ export class HousesService {
   }
 
   getHouse(id: string): Observable<House> {
-    return this.http.get<House>(this.url + 'house/' + id);
+    var url = this.url + 'house/' + id;
+    return this.http.get<House>(url);
   }
 
 }

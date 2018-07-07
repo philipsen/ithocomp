@@ -12,13 +12,15 @@ import { HouseDetailComponent } from './house-detail/house-detail.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './/app-routing.module';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HousesListComponent,
     HouseComponent,
-    HouseDetailComponent
+    HouseDetailComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

@@ -18,8 +18,9 @@ app.use(function(req, res, next) {
 });
 
 app.get('/api/command/:house/:room/:cmd', (req, res) => {
-  // console.log('received: ', req);
-  res.send('OK');
+  console.log('api send command', req.params.house, req.params.room, req.params.cmd);
+  //console.log('received: ', req);
+  res.send(JSON.stringify('OK'));
   client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
 });
 
