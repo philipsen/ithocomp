@@ -10,7 +10,7 @@ import { Observable, of, pipe } from 'rxjs';
 })
 export class HousesService {
 
-  private url = 'http://127.0.0.1/api/';
+  private url = '/api/';
 
   constructor(
     private http: HttpClient,

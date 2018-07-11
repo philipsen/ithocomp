@@ -14,9 +14,9 @@ waitForMongoose(url, {timeout: 60000}, function(err) {
     }
   });
 
-//   setTimeout(function() {
-//     mongoose.connect(url);
-//   }, 1000);
+  // setTimeout(function() {
+  //   mongoose.connect(url);
+  // }, 1000);
 
 // mongoose.connect(url);
 //   var db = mongoose.connection;

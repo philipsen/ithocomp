@@ -14,20 +14,29 @@ services:
     volumes:
       - ./api:/app
       - /app/node_modules
-    #ports:
-      #- "8080:8080"
+    ports:
+      - "8080:8080"
       #- "5858:5858"
     networks:
       - front
-  web:
-    image: nginx
-    ports: 
+  # web:
+  #   image: nginx
+  #   ports: 
+  #     - "80:80"
+  #   volumes:
+  #     - "./web/html:/usr/share/nginx/html"
+  #     - "./web/nginx:/etc/nginx"
+  #   networks: 
+  #     - front
+
+  web2:
+    image: philipsen/itho-app
+    build: ./itho-app
+    ports:
       - "80:80"
-    volumes:
-      - "./web/html:/usr/share/nginx/html"
-      - "./web/nginx:/etc/nginx"
-    networks: 
+    networks:
       - front
+  
   mongo:
     #container_name: mongo
     image: mongo
