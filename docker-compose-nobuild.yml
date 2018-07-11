@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  pubsub:
+    image: eclipse-mosquitto
+    networks: 
+      - "front"
+    ports: 
+      - "1883:1883"
+  api:
+    image: philipsen/api
+    #build: ./api
+    command: nodemon server.js
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
+      #- "5858:5858"
+    networks:
+      - front
+  # web:
+  #   image: nginx
+  #   ports: 
+  #     - "80:80"
+  #   volumes:
+  #     - "./web/html:/usr/share/nginx/html"
+  #     - "./web/nginx:/etc/nginx"
+  #   networks: 
+  #     - front
+
+  web2:
+    image: philipsen/itho-app
+    #build: ./itho-app
+    ports:
+      - "80:80"
+    networks:
+      - front
+  
+  mongo:
+    #container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+    networks: 
+      - front
+networks: 
+  front:
