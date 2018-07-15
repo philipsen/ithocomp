@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { House } from './house';
 import { Observable, of, pipe } from 'rxjs';
 //import { catchError } from 'rxjs/operators';

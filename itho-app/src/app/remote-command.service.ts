@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 })
 export class RemoteCommandService {
 
-  private url = 'http://127.0.0.1/api/command/';
+  private url = '/api/command/';
 
   constructor( 
     private http: HttpClient,

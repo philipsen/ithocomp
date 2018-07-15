@@ -19,16 +19,6 @@ services:
       #- "5858:5858"
     networks:
       - front
-  # web:
-  #   image: nginx
-  #   ports: 
-  #     - "80:80"
-  #   volumes:
-  #     - "./web/html:/usr/share/nginx/html"
-  #     - "./web/nginx:/etc/nginx"
-  #   networks: 
-  #     - front
-
   web2:
     image: philipsen/itho-app
     build: ./itho-app
