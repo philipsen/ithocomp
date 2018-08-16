@@ -55,6 +55,7 @@ console.log(`Running on http://${HOST}:${PORT}`);
 // });
 
 client.on('connect', function () {
+    console.log('mqtt connected');
   client.subscribe('itho/log/+');
   client.publish('presence', 'Helo mqtt');
 });

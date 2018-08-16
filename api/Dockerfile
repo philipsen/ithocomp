@@ -15,9 +15,11 @@ RUN npm install
 # RUN npm install --only=production
 
 # Bundle app source
-COPY . ./app
+COPY . /app
 
 ENV PORT 8080
 EXPOSE 8080
 
-CMD [ "npm", "start" ]
+RUN pwd
+RUN ls
+CMD [ "node", "server.js" ]

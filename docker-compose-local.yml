@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  pubsub:
+    image: philipsen/app-mqtt
+    build: app-mqtt
+    networks: 
+      - "front"
+    ports: 
+      - "1883:1883"
+  api:
+    image: philipsen/api
+    build: ./api
+    command: nodemon server.js
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
+    networks:
+      - front
+  web2:
+    image: philipsen/itho-app
+    build: ./itho-app
+    ports:
+      - "80:80"
+    networks:
+      - front
+  
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    #ports:
+    #  - "27017:27017"
+    networks: 
+      - front
+networks: 
+  front:

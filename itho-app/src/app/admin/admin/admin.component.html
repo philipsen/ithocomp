@@ -1,0 +1,6 @@
+<h1>Admin Page</h1>
+<p>
+  <ul>
+    <li *ngFor="let house of houses" routerLink="/house/{{house.name}}">{{house.name}}</li>
+  </ul>
+</p>

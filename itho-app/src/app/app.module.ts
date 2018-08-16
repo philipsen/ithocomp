@@ -13,6 +13,10 @@ import { HouseDetailComponent } from './house-detail/house-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './/app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
+import { AdminComponentComponent } from './admin/admin-component/admin-component.component';
+import { AdminHouseComponentComponent } from './admin/admin-house-component/admin-house-component.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { AdminHouseComponent } from './admin/admin-house/admin-house.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { MessagesComponent } from './messages/messages.component';
     HousesListComponent,
     HouseComponent,
     HouseDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    AdminComponentComponent,
+    AdminHouseComponentComponent,
+    AdminComponent,
+    AdminHouseComponent
   ],
   imports: [
     BrowserModule,
