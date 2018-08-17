@@ -26,9 +26,7 @@ services:
       - "80:80"
     networks:
       - front
-  
   mongo:
-    #container_name: mongo
     image: mongo
     volumes:
       - ./data:/data/db
