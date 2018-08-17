@@ -2,7 +2,7 @@ version: "3"
 
 services:
   pubsub:
-    image: philipsen/app-mqtt
+    #image: philipsen/app-mqtt
     build: app-mqtt
     networks: 
       - "front"
@@ -10,10 +10,10 @@ services:
       - "1883:1883"
   itho-api:
     image: philipsen/itho-api
-    build: ./api
+    #build: ./itho-api
     command: nodemon server.js
     volumes:
-      - ./api:/app
+      - ./itho-api:/app
       - /app/node_modules
     ports:
       - "8080:8080"

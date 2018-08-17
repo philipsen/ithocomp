@@ -7,19 +7,19 @@ services:
       - "front"
     ports: 
       - "1883:1883"
-  api:
-    image: philipsen/api
-    build: ./api
+  itho-api:
+    image: philipsen/itho-api
+    build: ./itho-api
     command: nodemon server.js
     volumes:
-      - ./api:/app
+      - ./itho-api:/app
       - /app/node_modules
     ports:
       - "8080:8080"
       #- "5858:5858"
     networks:
       - front
-  web2:
+  itho-app:
     image: philipsen/itho-app
     build: ./itho-app
     ports:
