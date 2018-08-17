@@ -1,6 +1,5 @@
 <h1>Admin Page</h1>
-<p>
-  <ul>
-    <li *ngFor="let house of houses" routerLink="/house/{{house.name}}">{{house.name}}</li>
-  </ul>
-  
+
+<ul>
+  <admin-house-item *ngFor="let house of houses" [house]="house">aap</admin-house-item>
+</ul>

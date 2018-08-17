@@ -8,8 +8,8 @@ services:
       - "front"
     ports: 
       - "1883:1883"
-  api:
-    image: philipsen/api
+  itho-api:
+    image: philipsen/itho-api
     build: ./api
     command: nodemon server.js
     volumes:
@@ -19,24 +19,29 @@ services:
       - "8080:8080"
     networks:
       - front
-  itho-app2:
-    #container_name: itho-app2
+  itho-app:
     build: 
       context: itho-app
-      dockerfile: Dockerfile-local
+      dockerfile: Dockerfile-dev
     ports:
-      - "80:80"
+      - "4200:4200"
       - "49153:49153"
     volumes:
       - ./itho-app:/app  
     networks:
-      - front 
+      - front
+  itho-proxy:
+    build:
+      context: itho-proxy
+      dockerfile: Dockerfile-dev
+    ports:
+      - "80:80"
+    networks:
+      - front
   mongo:
     image: mongo
     volumes:
       - ./data:/data/db
-    #ports:
-    #  - "27017:27017"
     networks: 
       - front
 networks: 

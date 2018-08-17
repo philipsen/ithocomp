@@ -9,6 +9,7 @@ WORKDIR $APP_ROOT
 RUN npm i -g @angular/cli \
     && npm i -g typescript
 	
-EXPOSE 80
+EXPOSE 4200
+EXPOSE 49153
 
 CMD ["bash", "init.sh"]

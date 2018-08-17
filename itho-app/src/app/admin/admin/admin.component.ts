@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { House } from '../../house';
+import { HousesService } from '../../houses.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  houses: House[];
+
+  constructor(private houseService: HousesService) { }
 
   ngOnInit() {
+    this.getHouses();
   }
 
+  getHouses(): void {
+    this.houseService.getHouses()
+      .subscribe(houses => this.houses = houses);
+  }
+  
 }

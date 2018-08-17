@@ -15,6 +15,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { AdminHouseComponent } from './admin/admin-house/admin-house.component';
+import { AdminHouseItemComponent } from './admin/admin-house-item/admin-house-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminHouseComponent } from './admin/admin-house/admin-house.component';
     HouseDetailComponent,
     MessagesComponent,
     AdminComponent,
-    AdminHouseComponent
+    AdminHouseComponent,
+    AdminHouseItemComponent
   ],
   imports: [
     BrowserModule,

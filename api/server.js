@@ -46,6 +46,18 @@ app.get('/api/house/:name', (req, res) => {
   //res.send('OK');
 });
 
+app.delete('/api/house/:name', (req, res) => {
+  console.log('delete house', req.params);
+  var name = req.params.name;
+  console.log('name = ', name);
+  var House = mongoose.model('House');
+  House.remove({ name: name }, function(err) {
+    if (err) return console.error(err);
+    console.log('house removed: ', name);
+  })
+  res.send(JSON.stringify('OK'));
+});
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
