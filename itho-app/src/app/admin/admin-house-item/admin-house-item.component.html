@@ -1,4 +1,4 @@
-<li>
+<li routerLink="/admin/house/{{house.name}}">
   {{house.name}} - {{house.ip}}
   <button class="delete" title="delete house" (click)="delete(house)">x</button>
 </li>

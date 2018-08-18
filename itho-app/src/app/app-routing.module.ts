@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'houses', component: HousesListComponent },
   { path: 'house/:id', component: HouseDetailComponent },
   { path: 'admin',  component: AdminComponent },
-  { path: 'admin/:id',  component: AdminHouseComponent }
+  { path: 'admin/house/:id',  component: AdminHouseComponent }
 ];
 
 @NgModule({
