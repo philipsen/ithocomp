@@ -15,14 +15,15 @@ function waitForMongoose(uri, options, callback) {
     if (currentTime - startTime < options.timeout) {
       mongoose.connect(uri, function (err, db) {
         if (err) {
-          console.log('Unable to connect to the server. Please start the server. Error:', err);
+          console.log('Mongoose: unable to connect, retry in ', options.interval);
+          //console.log('Unable to connect to the server. Please start the server. Error:', err);
           setTimeout(mongooseConnectionHandler, options.interval);
         } else {
-          console.log('Connected to Server successfully!');
+          console.log('Connected to MONGO Server successfully!');
         }
       });;
       mongoose.connection.on('error', (err) => {
-        if (err && err.message === 'connect ECONNREFUSED') {
+        if (err && err.message === 'connect ECONN REFUSED') {
           setTimeout(mongooseConnectionHandler, options.interval);
 
         }
