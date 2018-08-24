@@ -1,12 +1,6 @@
 version: "3"
 
 services:
-  pubsub:
-    image: eclipse-mosquitto
-    networks: 
-      - "front"
-    ports: 
-      - "1883:1883"
   itho-api:
     image: philipsen/itho-api
     build: ./itho-api
@@ -16,7 +10,6 @@ services:
       - /app/node_modules
     ports:
       - "8080:8080"
-      #- "5858:5858"
     networks:
       - front
   itho-app:
@@ -25,14 +18,6 @@ services:
     ports:
       - "80:80"
     networks:
-      - front
-  mongo:
-    image: mongo
-    volumes:
-      - ./data:/data/db
-    ports:
-      - "27017:27017"
-    networks: 
       - front
 networks: 
   front:

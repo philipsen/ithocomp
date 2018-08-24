@@ -1,15 +1,12 @@
 'use strict';
 
-const mqtt = require('mqtt')
-const client = mqtt.connect('mqtt://pubsub')
-const express = require('express');
-
 // Constants
-const MONGODB_HOST = 'localhost';
-const MONGODB_PORT = '27018';
-
 const PORT = 8080;
 const HOST = '0.0.0.0';
+
+const mqtt = require('mqtt')
+const client = mqtt.connect({ host: '167.99.32.103', username: 'itho', password: 'aapnootmies'});
+const express = require('express');
 
 // App
 const app = express();

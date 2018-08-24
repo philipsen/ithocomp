@@ -18,6 +18,7 @@ services:
     environment:
       - "MONGODB_HOST=host.docker.internal"
       - "MONGODB_PORT=32768"
+      - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=true"
     networks:
       - front
   itho-app:
