@@ -57,7 +57,7 @@ app.get('/api/house/:name', (req, res) => {
 app.get('/api/house/events/:name', (req, res) => {
   var name = req.params.name;
   var Event = mongoose.model('Event');
-  Event.find({ house: name}, null, { sort: { 'time': -1 }, limit: 20}, function(err, events) {
+  Event.find({ house: name}, null, { sort: { 'time': -1 }, limit: 2000}, function(err, events) {
     if (err) return console.error(err);
     res.send(JSON.stringify(events));
   })
