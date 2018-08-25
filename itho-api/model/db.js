@@ -17,4 +17,8 @@ waitForMongoose(url, {timeout: 60000}, function(err) {
     }
   });
 
-  require('./house');
+require('./house');
+require('./ithoLog');
+require('./event');
+require('./webappClickEvent');
+require('./stoveStatusEvent');

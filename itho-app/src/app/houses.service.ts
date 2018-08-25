@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { House } from './house';
 import { Observable, of, pipe } from 'rxjs';
+import { IthoEvent } from './model/itho-event';
 //import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
@@ -29,6 +30,11 @@ export class HousesService {
   getHouse(id: string): Observable<House> {
     var url = this.url + 'house/' + id;
     return this.http.get<House>(url);
+  }
+
+  getHouseEvents(id: string): Observable<IthoEvent[]> {
+    var url = this.url + 'house/events/' + id;
+    return this.http.get<IthoEvent[]>(url);
   }
 
   deleteHouse(house: House): Observable<any>  {

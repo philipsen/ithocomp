@@ -16,6 +16,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { AdminHouseComponent } from './admin/admin-house/admin-house.component';
 import { AdminHouseItemComponent } from './admin/admin-house-item/admin-house-item.component';
+import { AdminHouseEventComponent } from './admin/admin-house-event/admin-house-event.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminHouseItemComponent } from './admin/admin-house-item/admin-house-it
     MessagesComponent,
     AdminComponent,
     AdminHouseComponent,
-    AdminHouseItemComponent
+    AdminHouseItemComponent,
+    AdminHouseEventComponent
   ],
   imports: [
     BrowserModule,

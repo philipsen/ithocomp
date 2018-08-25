@@ -1,5 +1,10 @@
-<h1>Admin {{house.name}}</h1>
+<h1>Admin {{!!house && house.name}}</h1>
 
 <p>
-  Local ip: {{house.ip}}
+  Local ip: {{!!house && house.ip}}
 </p>
+
+<h3>Eventlog</h3>
+<table class="table table-striped">
+  <tr admin-house-event *ngFor="let event of events" [event]="event"></tr>
+</table>
