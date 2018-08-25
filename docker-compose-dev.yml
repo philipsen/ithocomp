@@ -1,12 +1,12 @@
 version: "3"
 
 services:
-  pubsub:
-    build: app-mqtt
-    networks: 
-      - "front"
-    ports: 
-      - "1883:1883"
+  # pubsub:
+  #   build: app-mqtt
+  #   networks: 
+  #     - "front"
+  #   ports: 
+  #     - "1883:1883"
   itho-api:
     image: philipsen/itho-api
     command: nodemon server.js
@@ -16,7 +16,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=true"
+      - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=false"
     networks:
       - front
   itho-app:
