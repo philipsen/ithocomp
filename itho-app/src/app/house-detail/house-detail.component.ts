@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HousesService } from '../houses.service';
 import { House } from '../house';
 import { RemoteCommandService } from '../remote-command.service';
+import { IthoState } from '../model/itho-state';
 
 @Component({
   selector: 'app-house-detail',
@@ -19,10 +20,12 @@ export class HouseDetailComponent implements OnInit {
 
 
   house = new House;
+  state = new IthoState;
 
   //public house: House;
   ngOnInit() {
     this.getHouse();
+    this.getState();
   }
   
   getHouse(): void {
@@ -31,9 +34,24 @@ export class HouseDetailComponent implements OnInit {
       .subscribe(house => this.house = house);
   }
 
+  getState(): void {
+    console.log('get state');
+    const id = this.route.snapshot.paramMap.get('id');
+    this.housesService.getHouseStatus(id).subscribe(state => {
+      console.log('here', state);
+      this.state = state;
+    }
+    );
+  }
   sendCommand(room: string, command: string): void {
     console.log('sendCommand');
     this.remoteCommandService.sendCommand(this.house.name, room, command)
-      .subscribe();
+      .subscribe(() => {
+        this.getState();
+      });
+  }
+
+  gs() : string {
+    return JSON.stringify(this.state);
   }
 }

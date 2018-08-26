@@ -54,11 +54,67 @@ app.get('/api/house/:name', (req, res) => {
   //res.send('OK');
 });
 
-app.get('/api/house/events/:name', (req, res) => {
+
+app.get('/api/house/status/:name', (req, res) => {
+  console.log('get state');
   var name = req.params.name;
   var Event = mongoose.model('Event');
-  Event.find({ house: name}, null, { sort: { 'time': -1 }, limit: 2000}, function(err, events) {
+  Event.find({ house: name}, null, { sort: { 'time': -1 }, limit: 200}, function(err, events) {
     if (err) return console.error(err);
+    events.reverse();
+    var state = {};
+    state.ventilation = 'none';
+    var fs = events.reduce((state, event) => {
+      //console.log('e = ', event.time, event.kind);
+      if (event.kind === 'StoveStatus') {
+        if (event.level > 0) {
+          state.ventilation = "cook";
+        } else {
+          state.ventilation = state.ventilationBaseState;
+        }
+      }
+      if (event.kind === 'WebappClick') {
+        if (event.room === 'k') {
+          if (event.command === 'eco' || event.command === 'comfort') {
+            state.ventilationBaseState = event.command;
+            state.ventilation = event.command;
+            state.endTimeCommand = event.time;
+          }
+          if (event.command == 'cook1') {
+            state.endTimeCommand = new Date(event.time.valueOf() + 30 * 60 * 1000);
+            state.ventilation = 'cook';
+          }
+          if (event.command == 'cook2') {
+            state.endTimeCommand = new Date(event.time.valueOf() + 60 * 60 * 1000);
+            state.ventilation = 'cook';
+          }
+
+        }
+      }
+      //console.log('cs = ', state)
+      return state;
+    }, state);
+    if (fs.endTimeCommand < new Date()) {
+      //console.log('last comm expired');  
+      fs.ventilation = fs.ventilationBaseState;
+
+    //} else {
+    //  console.log('last comm still active');
+    }
+    console.log('final =', fs);
+    res.send(JSON.stringify(fs));
+  });
+  });
+
+
+app.get('/api/house/events/:name', (req, res) => {
+  console.log('get events');
+  var name = req.params.name;
+  var Event = mongoose.model('Event');
+  Event.find({ house: name}, null, { sort: { 'time': -1 }, limit: 10}, function(err, events) {
+    if (err) return console.error(err);
+
+
     res.send(JSON.stringify(events));
   })
 });

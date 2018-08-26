@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { House } from './house';
 import { Observable, of, pipe } from 'rxjs';
 import { IthoEvent } from './model/itho-event';
+import { IthoState } from './model/itho-state';
 //import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
@@ -35,6 +36,11 @@ export class HousesService {
   getHouseEvents(id: string): Observable<IthoEvent[]> {
     var url = this.url + 'house/events/' + id;
     return this.http.get<IthoEvent[]>(url);
+  }
+
+  getHouseStatus(id: string): Observable<IthoState> {
+    var url = this.url + 'house/status/' + id;
+    return this.http.get<IthoState>(url);
   }
 
   deleteHouse(house: House): Observable<any>  {

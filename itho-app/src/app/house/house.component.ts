@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { House } from '../house';
+import { IthoState } from '../model/itho-state';
+import { HousesService } from '../houses.service';
 
 @Component({
   selector: 'app-house',
@@ -13,9 +15,12 @@ export class HouseComponent implements OnInit {
     ip: '1.2.3.4'
   }
 
-  constructor() { }
+  state: IthoState;
+
+  constructor(private houseService: HousesService) { }
 
   ngOnInit() {
   }
+
 
 }

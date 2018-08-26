@@ -1,5 +1,3 @@
-import { IthoWebappClickEvent } from "./itho-webapp-click-event";
-
 export class IthoEvent {
     time: Date
     house: string
