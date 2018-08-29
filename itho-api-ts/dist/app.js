@@ -1,47 +1,42 @@
-import express from "express";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
 // import compression from "compression";  // compresses requests
-import session from "express-session";
+const express_session_1 = __importDefault(require("express-session"));
 // import bodyParser from "body-parser";
 //import logger from "./util/logger";
 // import lusca from "lusca";
-import dotenv from "dotenv";
-import mongo from "connect-mongo";
+const dotenv_1 = __importDefault(require("dotenv"));
+const connect_mongo_1 = __importDefault(require("connect-mongo"));
 // import flash from "express-flash";
 // import path from "path";
-import mongoose from "mongoose";
+const mongoose_1 = __importDefault(require("mongoose"));
 // import passport from "passport";
 // import expressValidator from "express-validator";
 // import bluebird from "bluebird";
-import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
-
-const MongoStore = mongo(session);
-
+const secrets_1 = require("./util/secrets");
+const MongoStore = connect_mongo_1.default(express_session_1.default);
 // // Load environment variables from .env file, where API keys and passwords are configured
-dotenv.config({ path: ".env.example" });
-
+dotenv_1.default.config({ path: ".env.example" });
 // // Controllers (route handlers)
 // import * as homeController from "./controllers/home";
 // import * as userController from "./controllers/user";
 // import * as apiController from "./controllers/api";
 // import * as contactController from "./controllers/contact";
-
-
 // // API keys and Passport configuration
 // import * as passportConfig from "./config/passport";
-
 // Create Express server
-const app = express();
-
+const app = express_1.default();
 // Connect to MongoDB
-const mongoUrl = MONGODB_URI;
+const mongoUrl = secrets_1.MONGODB_URI;
 //(<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, { useNewUrlParser: true } ).then(
-  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
-  console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
-  // process.exit();
+mongoose_1.default.connect(mongoUrl, { useNewUrlParser: true }).then(() => { }).catch(err => {
+    console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
+    // process.exit();
 });
-
 // Express configuration
 app.set("port", process.env.PORT || 3000);
 // app.set("views", path.join(__dirname, "../views"));
@@ -50,14 +45,14 @@ app.set("port", process.env.PORT || 3000);
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(expressValidator());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: SESSION_SECRET,
-  store: new MongoStore({
-    url: mongoUrl,
-    autoReconnect: true
-  })
+app.use(express_session_1.default({
+    resave: true,
+    saveUninitialized: true,
+    secret: secrets_1.SESSION_SECRET,
+    store: new MongoStore({
+        url: mongoUrl,
+        autoReconnect: true
+    })
 }));
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -82,11 +77,9 @@ app.use(session({
 //   }
 //   next();
 // });
-
 // app.use(
 //   express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
 // );
-
 /**
  * Primary app routes.
  */
@@ -107,13 +100,11 @@ app.use(session({
 // app.post("/account/password", passportConfig.isAuthenticated, userController.postUpdatePassword);
 // app.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
 // app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
-
 // /**
 //  * API examples routes.
 //  */
 // app.get("/api", apiController.getApi);
 // app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-
 // /**
 //  * OAuth authentication routes. (Sign in)
 //  */
@@ -121,5 +112,5 @@ app.use(session({
 // app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
 //   res.redirect(req.session.returnTo || "/");
 // });
-
-export default app;
+exports.default = app;
+//# sourceMappingURL=app.js.map
