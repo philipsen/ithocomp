@@ -2,7 +2,7 @@ import express from "express";
 // import compression from "compression";  // compresses requests
 import session from "express-session";
 // import bodyParser from "body-parser";
-//import logger from "./util/logger";
+// import logger from "./util/logger";
 // import lusca from "lusca";
 import dotenv from "dotenv";
 import mongo from "connect-mongo";
@@ -22,7 +22,7 @@ dotenv.config({ path: ".env.example" });
 // // Controllers (route handlers)
 // import * as homeController from "./controllers/home";
 // import * as userController from "./controllers/user";
-// import * as apiController from "./controllers/api";
+import * as apiController from "./controllers/api";
 // import * as contactController from "./controllers/contact";
 
 
@@ -111,7 +111,7 @@ app.use(session({
 // /**
 //  * API examples routes.
 //  */
-// app.get("/api", apiController.getApi);
+app.get("/api", apiController.getApi);
 // app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 
 // /**
