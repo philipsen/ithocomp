@@ -34,6 +34,7 @@ const app = express();
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
+console.log("mongo url", mongoUrl);
 // (<any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, { useNewUrlParser: true } ).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
@@ -43,22 +44,23 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true } ).then(
 });
 
 // Express configuration
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8081);
+app.set("host", process.env.HOST || "0.0.0.0");
 // app.set("views", path.join(__dirname, "../views"));
 // app.set("view engine", "pug");
 // app.use(compression());
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(expressValidator());
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: SESSION_SECRET,
-  store: new MongoStore({
-    url: mongoUrl,
-    autoReconnect: true
-  })
-}));
+// app.use(session({
+//   resave: true,
+//   saveUninitialized: true,
+//   secret: SESSION_SECRET,
+//   store: new MongoStore({
+//     url: mongoUrl,
+//     autoReconnect: true
+//   })
+// }));
 // app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(flash());
@@ -113,9 +115,18 @@ app.use(session({
 //  */
 app.get("/api", apiController.getApi);
 // app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
+app.get("/api/houses", apiController.getHouses);
+app.get('/api/house/events/:name', apiController.getHouseEvents);
+app.get('/api/house/:name', apiController.getHouse);
+app.get('/api/command/:house/:room/:cmd', apiController.sendRemoteCommand);
+app.delete('/api/house/:name', apiController.deleteHouse);
+app.get('/api/house/status/:name', apiController.getHouseStatus);
+
+
+
 
 // /**
-//  * OAuth authentication routes. (Sign in)
+//  * Auth authentication routes. (Sign in)
 //  */
 // app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
 // app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {

@@ -7,12 +7,23 @@ services:
   #     - "front"
   #   ports: 
   #     - "1883:1883"
-  itho-api:
-    image: philipsen/itho-api
-    command: nodemon server.js
+  # itho-api:
+  #   image: philipsen/itho-api
+  #   command: nodemon server.js
+  #   volumes:
+  #     - ./itho-api:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=false"
+  #   networks:
+  #     - front
+  itho-api-ts:
+    image: philipsen/itho-api-ts
+    command: npm run watch
     volumes:
-      - ./itho-api:/app
-      - /app/node_modules
+      - ./itho-api-ts:/app
     ports:
       - "8080:8080"
     environment:

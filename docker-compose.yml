@@ -12,6 +12,16 @@ services:
       - "8080:8080"
     networks:
       - front
+
+  itho-api-ts:
+    image: philipsen/itho-api-ts
+    build: ./itho-api-ts
+    volumes:
+      - ./itho-api-ts:/app
+    ports:
+      - "3001:3000"
+    networks:
+      - front      
   itho-app:
     image: philipsen/itho-app
     build: ./itho-app
