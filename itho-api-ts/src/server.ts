@@ -1,23 +1,51 @@
-// import errorHandler from "errorhandler";
+import { info } from "winston";
 
-import app from "./app";
+const serverclass = require("./serverClass");
+const debug = require("debug")("express:server");
+const http = require("http");
 
-/**
- * Error Handler. Provides full stack - remove for production
- */
-// app.use(errorHandler());
+const httpPort = "8080";
+const app = serverclass.Server.bootstrap().app;
+app.set("port", httpPort);
+const server = http.createServer(app);
 
-/**
- * Start Express server.
- */
-const server = app.listen(app.get("port"), app.get("host"), () => {
-  console.log(
-    "  App is running at http://%s:%d in %s mode",
-    app.get("host"),
-    app.get("port"),
-    app.get("env")
-  );
-  console.log("  Press CTRL-C to stop\n");
-});
+server.listen(httpPort);
+
+server.on("error", onError);
+server.on("listening", onListening);
+
+function onError(error: any) {
+    if (error.syscall !== "listen") {
+        throw error;
+    }
+
+    const port = server.port();
+    const bind = typeof port === "string"
+        ? "Pipe " + port
+        : "Port " + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case "EACCES":
+            console.error(bind + " requires elevated privileges");
+            process.exit(1);
+            break;
+        case "EADDRINUSE":
+            console.error(bind + " is already in use");
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+function onListening() {
+    console.log("listen..");
+    const addr = server.address();
+    const bind = typeof addr === "string"
+        ? "pipe " + addr
+        : "port " + addr.port;
+    info("Listening on " + bind);
+}
 
 export default server;

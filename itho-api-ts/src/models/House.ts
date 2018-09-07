@@ -1,16 +1,12 @@
+import { Document, Model, model } from "mongoose";
+import { IHouse } from "../interfaces/ihouse";
+import { houseSchema } from "../schema/house";
 
-import mongoose from "mongoose";
 console.log("load House");
 
-export type HouseModel = mongoose.Document & {
-    name: String,
-    ip: String
-};
+export interface IHouseModel extends IHouse, Document {}
 
-const houseSchema = new mongoose.Schema({
-    name: { type: String, unique: true },
-    ip: String
-});
+export interface IHouseModelStatic extends Model<IHouseModel> {}
 
-const House = mongoose.model("House", houseSchema);
-export default House;
+export const House = model<IHouseModel, IHouseModelStatic>("House", houseSchema);
+
