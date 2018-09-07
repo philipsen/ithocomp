@@ -1,3 +1,5 @@
 export class HouseState {
-    ventilation: string
-};
+    ventilation: String;
+    ventilationBaseState: string;
+    endTimeCommand: Date;
+}
