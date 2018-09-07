@@ -1,15 +1,15 @@
 
-import { Response, Request } from "express";
-import { Event } from "../models/itho-event";
-// import { default as WebappClickEvent, WebappClickEventModel } from "../models/WebappClickEvent";
-import { House } from "../models/house";
+// import { Response, Request } from "express";
+// import { Event } from "../models/itho-event";
+// // import { default as WebappClickEvent, WebappClickEventModel } from "../models/WebappClickEvent";
+// import { House } from "../models/house";
 
-import { HouseState } from "../models/HouseState";
+// import { HouseState } from "../models/HouseState";
 
-export let getApi = (req: Request, res: Response) => {
-  console.log("here");
-  res.jsonp({ a: "bla" });
-};
+// export let getApi = (req: Request, res: Response) => {
+//   console.log("here");
+//   res.jsonp({ a: "bla" });
+// };
 
 // export let getHouses = (req: Request, res: Response) => {
 //   House.find((err, houses) => {
@@ -18,14 +18,14 @@ export let getApi = (req: Request, res: Response) => {
 //   });
 // };
 
-export let getHouseEvents = (req: Request, res: Response) => {
-  const name = req.params.name;
-  Event.find({ house: name }, undefined, { sort: { "time": -1 }, limit: 300 },
-    (err, events) => {
-      if (err) return console.error(err);
-      res.send(JSON.stringify(events));
-    });
-};
+// export let getHouseEvents = (req: Request, res: Response) => {
+//   const name = req.params.name;
+//   Event.find({ house: name }, undefined, { sort: { "time": -1 }, limit: 300 },
+//     (err, events) => {
+//       if (err) return console.error(err);
+//       res.send(JSON.stringify(events));
+//     });
+// };
 
 // //  app.get('/api/command/:house/:room/:cmd', apiController.
 // export let sendRemoteCommand = (req: Request, res: Response) => {
