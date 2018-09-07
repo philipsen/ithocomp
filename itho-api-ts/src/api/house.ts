@@ -22,23 +22,22 @@ export class HouseApi {
         router.get("/house/status/:name", (req: Request, res: Response, next: NextFunction) => {
             new HouseApi().getHouseState(req, res, next);
         });
+        router.get("/command/:house/:room/:cmd", (req: Request, res: Response, next: NextFunction) => {
+            new HouseApi().sendRemoteCommand(req, res, next);
+        });
     }
 
-
-// //  app.get('/api/command/:house/:room/:cmd', apiController.
-// export let sendRemoteCommand = (req: Request, res: Response) => {
-//   console.log('api send command', req.params.house, req.params.room, req.params.cmd);
-//   //console.log('received: ', req);
-//   WebappClickEvent.create({
-//     house: req.params.house,
-//     room: req.params.room,
-//     command: req.params.cmd
-//   })
-//   res.send(JSON.stringify('OK'));
-//   //client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
-// };
-
-
+    sendRemoteCommand(req: Request, res: Response, next: NextFunction): any {
+        console.log("api send command", req.params.house, req.params.room, req.params.cmd);
+        WebappClickEvent.create({
+            house: req.params.house,
+            room: req.params.room,
+            command: req.params.cmd
+        });
+        res.send(JSON.stringify("OK"));
+        // client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);    }
+        next();
+    }
 
     getHouseEvents(req: Request, res: Response, next: NextFunction): any {
         const name = req.params.name;
