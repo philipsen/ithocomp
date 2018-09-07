@@ -24,6 +24,22 @@ export class HouseApi {
         });
     }
 
+
+// //  app.get('/api/command/:house/:room/:cmd', apiController.
+// export let sendRemoteCommand = (req: Request, res: Response) => {
+//   console.log('api send command', req.params.house, req.params.room, req.params.cmd);
+//   //console.log('received: ', req);
+//   WebappClickEvent.create({
+//     house: req.params.house,
+//     room: req.params.room,
+//     command: req.params.cmd
+//   })
+//   res.send(JSON.stringify('OK'));
+//   //client.publish(req.params.house + '/command/' + req.params.room, req.params.cmd);
+// };
+
+
+
     getHouseEvents(req: Request, res: Response, next: NextFunction): any {
         const name = req.params.name;
         IthoEvent.find({ house: name }, undefined, { sort: { "time": -1 }, limit: 30 }).then(events => {
@@ -49,7 +65,7 @@ export class HouseApi {
 
     getHouseState(req: Request, res: Response, next: NextFunction): any {
         const name = req.params.name;
-        IthoEvent.find({ house: name }, undefined, { sort: { "time": -1 }, limit: 300 }).then(events => {
+        IthoEvent.find({ house: name }, undefined, { sort: { "time": -1 }, limit: 1 }).then(events => {
             let state: IHouseState = {
                 ventilation: "comfort",
                 ventilationBaseState: "comfort",
@@ -69,7 +85,9 @@ export class HouseApi {
         console.log("apply: ", event.time, event.kind);
         switch (event.kind) {
             case "WebappClick":
-                return this.applyWappappClickEvent(state, new WebappClickEvent(event));
+                const clickEvent = new WebappClickEvent(event);
+                console.log("ce = ", clickEvent, WebappClickEvent);
+                return this.applyWappappClickEvent(state, clickEvent);
             case "StoveStatus":
                 return this.applyStoveStatusEvent(state, new StoveStateEvent(event));
             default:

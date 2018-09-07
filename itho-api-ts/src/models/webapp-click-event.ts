@@ -6,9 +6,6 @@ import { IthoEvent } from "./itho-event";
 export interface IWebappClickEventModel extends IWebappClickEvent, Document {}
 
 export interface IWebappClickEventModelStatic extends Model<IWebappClickEventModel> {}
+export const WebappClickEventDiscriminator = IthoEvent.discriminator("WebappClick", webappClickEventSchema);
+export const WebappClickEvent = model<IWebappClickEventModel, IWebappClickEventModelStatic>("WebappClick");
 
-export const WebappClickEvent2 =
-  model<IWebappClickEventModel, IWebappClickEventModelStatic>("WebappClickEvent", 
-  webappClickEventSchema);
-
-  export const WebappClickEvent = IthoEvent.discriminator("WebappClick", webappClickEventSchema);
