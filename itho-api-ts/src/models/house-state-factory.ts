@@ -1,8 +1,9 @@
-// import { HouseState } from "./HouseState";
+// import { IHouseState } from "../interfaces/ihouse-state";
+// import { IEvent } from "../interfaces/ievent";
 
-// class HouseStateFactory extends EventRepo{
-//     generate(house: string) : HouseState {
-//         let hs = new HouseState;
+// class HouseStateFactory {
+//     generate(house: string) : IHouseState {
+//         let hs = new IHouseState;
 
 //         let events: IEvent[] = this.getEvents(house);
 
@@ -12,6 +13,12 @@
 
 //         return hs;
 //     }
+
+//     getEvents(house: string): any {
+//         throw new Error("Method not implemented.");
+//     }
+
+    
 
 //     private applyEvent(hs: HouseState, event: IEvent): any {
 //         switch (event.kind) {
