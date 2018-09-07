@@ -21,8 +21,6 @@ app.use(function (req, res, next) {
 });
 
 app.get('/api/command/:house/:room/:cmd', (req, res) => {
-  console.log('api send command', req.params.house, req.params.room, req.params.cmd);
-  //console.log('received: ', req);
   WebappClick.create({ 
     house: req.params.house, 
     room: req.params.room,
