@@ -6,7 +6,7 @@ import { IWebappClickEvent } from "../interfaces/iwebapp-click-event";
 import { IStoveStateEvent } from "../interfaces/istove-state-event";
 import { WebappClickEvent } from "../models/webapp-click-event";
 import { StoveStateEvent } from "../models/stove-state-event";
-import mqtt from "mqtt";
+import { PubsubProxy } from "../proxy/pubsub-proxy";
 
 export class HouseApi {
 
@@ -36,9 +36,9 @@ export class HouseApi {
             command: req.params.cmd
         });
         res.send(JSON.stringify("OK"));
-
-        const client = mqtt.connect({ host: "167.99.32.103", username: "itho", password: "aapnootmies"});
-        client.publish(req.params.house + "/command/" + req.params.room, req.params.cmd);
+        const subject = req.params.house + "/command/" + req.params.room;
+        const message = req.params.cmd;
+        new PubsubProxy().publish(subject, message);
         next();
     }
 
