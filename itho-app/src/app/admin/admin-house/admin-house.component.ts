@@ -30,7 +30,12 @@ export class AdminHouseComponent implements OnInit {
       console.log('events: ', events);
       this.events = events;
     });
-  };
+  }
+
+  enableLog(): void {
+    console.log('here', this.house.name);
+    this.housesService.houseEnableLog(this.house.name).subscribe();
+  }
 
   getHouse(): void {
     const id = this.route.snapshot.paramMap.get('id');

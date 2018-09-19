@@ -26,6 +26,16 @@ export class HouseApi {
         router.get("/command/:house/:room/:cmd", (req: Request, res: Response, next: NextFunction) => {
             new HouseApi().sendRemoteCommand(req, res, next);
         });
+        router.put("/house/logging/:house/:value", (req: Request, res: Response, next: NextFunction) => {
+            new HouseApi().enableLogging(req, res, next);
+        });
+    }
+
+    enableLogging(req: Request, res: Response, next: NextFunction): any {
+        console.log("enable log", req.params.house, req.params.value);
+        const message = req.params.house + "/set/≈";
+        const subject = "printNonRemote/" + req.params.value;
+        new PubsubProxy().publish(message, subject);
     }
 
     sendRemoteCommand(req: Request, res: Response, next: NextFunction): any {

@@ -4,6 +4,7 @@
   Local ip: {{!!house && house.ip}}
 </p>
 
+<button (click)="enableLog()">Enable All Log</button>
 <h3>Eventlog</h3>
 <table class="table table-striped">
   <tr admin-house-event *ngFor="let event of events" [event]="event"></tr>
