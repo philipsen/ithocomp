@@ -22,12 +22,12 @@ export class HouseDetailComponent implements OnInit {
   house = new House;
   state = new IthoState;
 
-  //public house: House;
+  // public house: House;
   ngOnInit() {
     this.getHouse();
     this.getState();
   }
-  
+
   getHouse(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.housesService.getHouse(id)
@@ -51,7 +51,7 @@ export class HouseDetailComponent implements OnInit {
       });
   }
 
-  gs() : string {
+  gs(): string {
     return JSON.stringify(this.state);
   }
 }
