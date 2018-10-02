@@ -1,3 +1,3 @@
 export class IthoButton {
-    constructor(label: string, remoteId: string, remoteCommand: string) {}
+    constructor(public label: string, public remoteId: string, public remoteCommand: string) {}
 }
