@@ -1,13 +1,8 @@
 
 import express from 'express';
-//  import * as morgan from "morgan";
-// import * as path from "path";
-// import errorHandler = require("errorhandler");
 import mongoose = require('mongoose');
-// import * as cors from "cors";
 import dotenv from 'dotenv';
 import { HouseApi } from './api/house';
-// import { runInNewContext } from "vm";
 
 import * as path from 'path';
 import * as http from 'http';
@@ -73,13 +68,15 @@ export class Server {
 
         const router = express.Router();
         router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+            const isApi = req.baseUrl.startsWith('/api');
+            // logger.debug(`orig url= ${isApi}`);
+            if (isApi) { next(); return;
+            }
             const p = path.join(this.root, 'index.html');
-            logger.debug(`p ${req.baseUrl} ${req.url} ${p}`);
+            logger.debug(`path ${req.baseUrl} ${req.url} ${p}`);
             res.sendFile(p);
         });
         this.app.use('*', router);
-        // serveStatic.serveStatic
-        // this.app.use('/*', serveStatic(this.root));
     }
 
     private listen(): void {
