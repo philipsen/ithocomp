@@ -31,6 +31,11 @@ export class HouseDetailComponent implements OnInit {
     this.getButtons();
   }
 
+  onVoted() {
+    console.log('trigger');
+    this.getState();
+  }
+
   getHouse(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.housesService.getHouse(id)
