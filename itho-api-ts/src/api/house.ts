@@ -30,18 +30,17 @@ interface IRemoteCommand {
     bytes: String;
 }
 const remoteCommands: IRemoteCommand[] = [
-    { name: 'eco', bytes: '22:f8:3:0:1:2'},
-    { name: 'comfort', bytes: '22:f8:3:0:2:2'},
-    { name: 'cook1', bytes: '22:f3:5:0:2:1e:2:3'},
-    { name: 'cook2', bytes: '22:f3:5:0:2:3c:2:3'},
+    { name: 'eco', bytes:      '22:f8:3:0:1:2'},
+    { name: 'comfort', bytes:  '22:f8:3:0:2:2'},
+    { name: 'cook1', bytes:    '22:f3:5:0:2:1e:2:3'},
+    { name: 'cook2', bytes:    '22:f3:5:0:2:3c:2:3'},
     { name: 's_timer1', bytes: '22:f3:03:63:80:01'},
     { name: 's_timer2', bytes: '22:f3:03:63:80:02'},
-    { name: 's_timer3', bytes: '22:f3:03:63:80:03'}
+    { name: 's_timer3', bytes: '22:f3:03:63:80:03'},
+    { name: 's_auto', bytes:   '22:f1:03:63:03:04'}
 ];
 
-
 export class HouseApi {
-
 
     public static create(router: Router) {
         router.get('/houses', (req: Request, res: Response, next: NextFunction) => {
@@ -188,7 +187,11 @@ export class HouseApi {
                 state.endTimeCommand = new Date(event.time.getTime() + 60 * 1000 * (event.command === 's_timer1' ? 10 : 20));
                 logger.debug(`applySendCommandEvent: new end time ${state.endTimeCommand}`);
                 return state;
-
+            case 's_auto':
+            state.ventilation = 'Eco';
+            state.ventilationBaseState = state.ventilation;
+            state.endTimeCommand = event.time;
+            return state;
         }
         throw new Error('State not handled');
     }

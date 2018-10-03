@@ -1,4 +1,4 @@
 export class House {
-    name: String;
-    ip: String;
+    name: string;
+    ip: string;
 }
