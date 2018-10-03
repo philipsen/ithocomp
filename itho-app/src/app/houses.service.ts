@@ -56,8 +56,8 @@ export class HousesService {
             new IthoButton('Comfort',           'main', 'comfort'),
             new IthoButton('Keuken 30 min',     'main', 'cook1'),
             new IthoButton('Keuken 60 min',     'main', 'cook2'),
-            new IthoButton('WC beneden 10 min', 'second', '22:f8:3:0:2:2'),
-            new IthoButton('WC beneden 20 min', 'second', '22:f8:3:0:2:2'),
+            new IthoButton('WC beneden 10 min', 'second', 's_timer1'),
+            new IthoButton('WC beneden 20 min', 'second', 's_timer2'),
         ];
         console.log('getButtons: ', id, buttons);
         return buttons;

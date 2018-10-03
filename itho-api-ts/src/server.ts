@@ -10,7 +10,7 @@ import * as http from 'http';
 
 import logger from './util/logger';
 
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
+import { MONGODB_URI } from './util/secrets';
 
 export class Server {
 

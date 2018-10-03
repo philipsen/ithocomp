@@ -21,7 +21,7 @@ const remotes: IRemoteId[] = [{
     bytes: '52:50:b9'
 }, {
     name: 'second',
-    bytes: '52:01:01'
+    bytes: '74:f3:af'
 }
 ];
 
@@ -33,7 +33,10 @@ const remoteCommands: IRemoteCommand[] = [
     { name: 'eco', bytes: '22:f8:3:0:1:2'},
     { name: 'comfort', bytes: '22:f8:3:0:2:2'},
     { name: 'cook1', bytes: '22:f3:5:0:2:1e:2:3'},
-    { name: 'cook2', bytes: '22:f3:5:0:2:3c:2:3'}
+    { name: 'cook2', bytes: '22:f3:5:0:2:3c:2:3'},
+    { name: 's_timer1', bytes: '22:f3:03:63:80:01'},
+    { name: 's_timer2', bytes: '22:f3:03:63:80:02'},
+    { name: 's_timer3', bytes: '22:f3:03:63:80:03'}
 ];
 
 
@@ -159,25 +162,33 @@ export class HouseApi {
         }
         throw new Error('Unknown event: ' + event.kind);
     }
+
     applySendCommandEvent(state: IHouseState, event: ISendCommandEvent): IHouseState {
         logger.debug(`applySendCommandEvent: ${event.remote}, ${event.command}`);
         switch (event.command) {
             case 'eco':
-                state.ventilation = 'eco';
+                state.ventilation = 'Eco';
                 state.ventilationBaseState = state.ventilation;
                 state.endTimeCommand = event.time;
                 return state;
             case 'comfort':
-                state.ventilation = 'comfort';
+                state.ventilation = 'Comfort';
                 state.ventilationBaseState = state.ventilation;
                 state.endTimeCommand = event.time;
                 return state;
             case 'cook1':
             case 'cook2':
-                state.ventilation = event.command;
+                state.ventilation = 'Keuken';
                 state.endTimeCommand = new Date(event.time.getTime() + 60 * 1000 * (event.command === 'cook1' ? 30 : 60));
                 logger.debug(`applySendCommandEvent: new end time ${state.endTimeCommand}`);
                 return state;
+            case 's_timer1':
+            case 's_timer2':
+                state.ventilation = 'Badkamer';
+                state.endTimeCommand = new Date(event.time.getTime() + 60 * 1000 * (event.command === 's_timer1' ? 10 : 20));
+                logger.debug(`applySendCommandEvent: new end time ${state.endTimeCommand}`);
+                return state;
+
         }
         throw new Error('State not handled');
     }

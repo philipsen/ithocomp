@@ -1,5 +1,5 @@
 
-import mqtt from "mqtt";
+import mqtt from 'mqtt';
 
 export class PubsubProxy {
 
@@ -8,9 +8,9 @@ export class PubsubProxy {
 
     publish(subject: string, message: string): void {
         const client = mqtt.connect({
-            host: "167.99.32.103",
-            username: "itho",
-            password: "aapnootmies"});
+            host: '167.99.32.103',
+            username: 'itho',
+            password: 'aapnootmies'});
         client.publish(subject, message);
     }
 
