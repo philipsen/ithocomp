@@ -16,13 +16,13 @@ interface IRemoteId {
     name: String;
     bytes: String;
 }
-const remotes: IRemoteId[] = [{
-    name: 'main',
-    bytes: '52:50:b9'
-}, {
-    name: 'second',
-    bytes: '74:f3:af'
-}
+const remotes: IRemoteId[] = [
+    { name: 'wmt6/main',    bytes: '52:50:b9' },
+    { name: 'wmt6/second',  bytes: '74:f3:af'},
+    { name: 'wmt40/main',   bytes: '52:4c:6d' },
+    { name: 'wmt40/second', bytes: '74:f3:af'},
+    { name: 'wmt28/main',   bytes: '52:4d:45' },
+    { name: 'wmt28/second', bytes: '74:f3:af'}
 ];
 
 interface IRemoteCommand {
@@ -70,7 +70,7 @@ export class HouseApi {
         console.log('enable log', req.params.house, req.params.value);
         const message = req.params.house + '/set/≈';
         const subject = 'printNonRemote/' + req.params.value;
-        new PubsubProxy().publish(message, subject);
+        PubsubProxy.getInstance().publish(message, subject);
     }
 
     sendRemoteCommand(req: Request, res: Response, next: NextFunction): any {
@@ -83,13 +83,14 @@ export class HouseApi {
         res.send(JSON.stringify('OK'));
         const subject = req.params.house + '/command/' + req.params.room;
         const message = req.params.cmd;
-        new PubsubProxy().publish(subject, message);
+        PubsubProxy.getInstance().publish(subject, message);
         next();
     }
 
     sendRemoteCommandBytes(req: Request, res: Response, next: NextFunction): any {
         console.log('api send command byes', req.params.house, req.params.remote, req.params.cmd);
-        const remoteId = remotes.find(r => r.name == req.params.remote).bytes;
+        const remoteKey = req.params.house + '/' + req.params.remote;
+        const remoteId = remotes.find(r => r.name == remoteKey).bytes;
         const remoteCommand = remoteCommands.find(r => r.name == req.params.cmd).bytes;
 
         SendCommandEvent.create({
@@ -100,7 +101,7 @@ export class HouseApi {
         res.json({ result: 'OK' });
         const subject = 'itho/' + req.params.house + '/send';
         const message = remoteId + '/' + remoteCommand;
-        new PubsubProxy().publish(subject, message);
+        PubsubProxy.getInstance().publish(subject, message);
         next();
     }
 
