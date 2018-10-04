@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IthoEvent } from './model/itho-event';
 import { IthoState } from './model/itho-state';
 import { IthoButton } from './model/itho-button';
+import { Wmt40Buttons, Wmt6Buttons } from './houses.hardcodedbuttons';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -51,17 +52,12 @@ export class HousesService {
     }
 
     getButtons(id: String): IthoButton[] {
-        const buttons: IthoButton[] = [
-            new IthoButton('Eco',               'main', 'eco'),
-            new IthoButton('Comfort',           'main', 'comfort'),
-            new IthoButton('Keuken 30 min',     'main', 'cook1'),
-            new IthoButton('Keuken 60 min',     'main', 'cook2'),
-            new IthoButton('WC beneden 10 min', 'second', 's_timer1'),
-            new IthoButton('WC ebneden 20 min', 'second', 's_timer2'),
-            new IthoButton('WC §auto',           'second', 's_auto'),
-        ];
-        console.log('getButtons: ', id, buttons);
-        return buttons;
+        let b = Wmt6Buttons;
+        switch (id) {
+            case 'wmt40':
+                b = Wmt40Buttons;
+        }
+        console.log('getButtons', id, b);
+        return b;
     }
-
 }
