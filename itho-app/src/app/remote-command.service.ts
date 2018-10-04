@@ -13,16 +13,24 @@ export class RemoteCommandService {
 
   private url = '/api/command/';
 
-  constructor( 
+  constructor(
     private http: HttpClient,
     private messageService: MessageService
   ) { }
 
   sendCommand(house: string, room: string, cmd: string): Observable<any> {
-    var url = this.url + house + "/" + room + "/" + cmd;
+    const url = this.url + house + '/' + room + '/' + cmd;
     return this.http.get(url).pipe(
       tap(_ => this.log(`send command ${url}`)),
       catchError(this.handleError<any>('send command2')
+    ));
+  }
+
+  sendCommandBytes(house: string, remoteId: string, remoteCommand: string): Observable<any> {
+    const url = this.url + 'sendBytes/' + house + '/' + remoteId + '/' + remoteCommand;
+    return this.http.get(url).pipe(
+      tap(_ => this.log(`send command ${url}`)),
+      catchError(this.handleError<any>('send command3')
     ));
   }
 

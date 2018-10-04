@@ -4,6 +4,7 @@ import { HousesService } from '../houses.service';
 import { House } from '../house';
 import { RemoteCommandService } from '../remote-command.service';
 import { IthoState } from '../model/itho-state';
+import { IthoButton } from '../model/itho-button';
 
 @Component({
   selector: 'app-house-detail',
@@ -11,7 +12,7 @@ import { IthoState } from '../model/itho-state';
   styleUrls: ['./house-detail.component.css']
 })
 export class HouseDetailComponent implements OnInit {
-  
+
   constructor(
     private housesService: HousesService,
     private remoteCommandService: RemoteCommandService,
@@ -21,13 +22,20 @@ export class HouseDetailComponent implements OnInit {
 
   house = new House;
   state = new IthoState;
+  buttons: IthoButton[];
 
-  //public house: House;
+  // public house: House;
   ngOnInit() {
     this.getHouse();
     this.getState();
+    this.getButtons();
   }
-  
+
+  onVoted() {
+    console.log('trigger');
+    this.getState();
+  }
+
   getHouse(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.housesService.getHouse(id)
@@ -38,11 +46,16 @@ export class HouseDetailComponent implements OnInit {
     console.log('get state');
     const id = this.route.snapshot.paramMap.get('id');
     this.housesService.getHouseStatus(id).subscribe(state => {
-      console.log('here', state);
       this.state = state;
     }
     );
   }
+
+  getButtons(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.buttons = this.housesService.getButtons(id);
+  }
+
   sendCommand(room: string, command: string): void {
     console.log('sendCommand');
     this.remoteCommandService.sendCommand(this.house.name, room, command)
@@ -51,7 +64,7 @@ export class HouseDetailComponent implements OnInit {
       });
   }
 
-  gs() : string {
+  gs(): string {
     return JSON.stringify(this.state);
   }
 }

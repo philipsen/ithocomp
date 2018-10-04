@@ -1,9 +1,9 @@
 export class IthoEvent {
-    time: Date
-    house: string
-    kind: string
+    time: Date;
+    house: String;
+    kind: String;
 
-    printString(): string {
+    printString(): String {
         return Object.create(this).toString();
     }
 }

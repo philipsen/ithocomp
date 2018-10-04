@@ -6,28 +6,14 @@
     </div>
   </div>
   <div class="row">
-
     <div class="col-sm">
+
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Keuken</h5>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('k', 'eco')">Eco</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('k', 'comfort')">Comfort</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('k', 'cook1')">Koken 30 min</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('k', 'cook2')">Koken 60 min</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">WC beneden</h5>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('b', 'timer1')">Ventileren 10</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('b', 'timer2')">Ventileren 20</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('b', 'timer3')">Ventileren 30 </button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('b', 'auto1')">auto 1 </button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="sendCommand('b', 'auto2')">auto 2 </button>
+          <div class="btn-block">
+          <app-itho-button *ngFor="let b of buttons" [button]="b" [house]="house.name" (voted)="onVoted($event)">
+            </app-itho-button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 
 export let stoveStateEventSchema: Schema = new Schema({
     kind: String,

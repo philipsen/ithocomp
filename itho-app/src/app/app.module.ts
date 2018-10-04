@@ -17,6 +17,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { AdminHouseComponent } from './admin/admin-house/admin-house.component';
 import { AdminHouseItemComponent } from './admin/admin-house-item/admin-house-item.component';
 import { AdminHouseEventComponent } from './admin/admin-house-event/admin-house-event.component';
+import { IthoButtonComponent } from './house-detail/itho-button/itho-button.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminHouseEventComponent } from './admin/admin-house-event/admin-house-
     AdminComponent,
     AdminHouseComponent,
     AdminHouseItemComponent,
-    AdminHouseEventComponent
+    AdminHouseEventComponent,
+    IthoButtonComponent
   ],
   imports: [
     BrowserModule,
