@@ -7,10 +7,5 @@ pipeline {
         sh 'ls -lR'
       }
     }
-    stage('Build') {
-      steps {
-        sh 'docker-compose build'
-      }
-    }
   }
 }
