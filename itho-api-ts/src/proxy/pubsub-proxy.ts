@@ -2,7 +2,7 @@
 import logger from '../util/logger';
 import mqtt from 'mqtt';
 import { MQTT_HOST, MQTT_USER, MQTT_PASSWD } from '../util/secrets';
-import { House } from '../models/house';
+import { House } from '../models/house2';
 
 export class PubsubProxy {
     private static instance: PubsubProxy;
