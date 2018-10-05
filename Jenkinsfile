@@ -7,5 +7,10 @@ pipeline {
         sh 'ls -lR'
       }
     }
+    stage('API') {
+      steps {
+        sh 'docker --version'
+      }
+    }
   }
 }
