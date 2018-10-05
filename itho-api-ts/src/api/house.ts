@@ -9,7 +9,7 @@ import { PubsubProxy } from '../proxy/pubsub-proxy';
 import { SendCommandEvent } from '../models/send-command-event';
 import { ISendCommandEvent } from '../interfaces/isend-command-event';
 import logger from '../util/logger';
-import { House } from 'src/models/house';
+import { House } from '../models/house';
 
 
 interface IRemoteId {
