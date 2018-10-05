@@ -9,7 +9,8 @@ pipeline {
     }
     stage('API') {
       steps {
-        sh 'docker --version'
+        sh '''docker build ./itho-api-ts
+'''
       }
     }
   }
