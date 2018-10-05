@@ -1,25 +1,22 @@
-FROM node:8
+FROM node:8 AS back-builder
 
-# Create app directory
-WORKDIR /app
-
-# Install app dependencies
-RUN npm install -g nodemon
-
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+WORKDIR /usr/src/app
+COPY package*.json tsconfig.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
 
-# Bundle app source
-COPY . /app
+COPY src ./src
 
-ENV PORT 8080
+RUN npm run build-ts
+
+FROM node:8
+
+WORKDIR /usr/src/app
+
+
+COPY --from=back-builder /usr/src/app/node_modules ./node_modules
+COPY --from=back-builder /usr/src/app/dist ./dist
+
 EXPOSE 8080
 
-RUN pwd
-RUN ls
-CMD [ "node", "server.js" ]
+CMD ["node", "dist/index.js"]
