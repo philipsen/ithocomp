@@ -1,5 +1,4 @@
 import { Router, NextFunction, Request, Response } from 'express';
-import { House } from '../models/house';
 import { IthoEvent, IEventModel } from '../models/itho-event';
 import { IHouseState } from '../interfaces/ihouse-state';
 import { IWebappClickEvent } from '../interfaces/iwebapp-click-event';
@@ -10,6 +9,7 @@ import { PubsubProxy } from '../proxy/pubsub-proxy';
 import { SendCommandEvent } from '../models/send-command-event';
 import { ISendCommandEvent } from '../interfaces/isend-command-event';
 import logger from '../util/logger';
+import { House } from 'src/models/house';
 
 
 interface IRemoteId {
