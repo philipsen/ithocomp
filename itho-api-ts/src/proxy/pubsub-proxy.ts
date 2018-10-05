@@ -10,7 +10,7 @@ export class PubsubProxy {
     private client: mqtt.Client;
 
     private constructor() {
-        logger.debug('PubsubProxy.ctor');
+        logger.debug(`PubsubProxy.ctor ${MQTT_HOST} ${MQTT_USER} ${MQTT_PASSWD}`);
         this.client = mqtt.connect({
             host: MQTT_HOST,
             username: MQTT_USER,

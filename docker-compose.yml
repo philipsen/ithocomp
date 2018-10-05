@@ -1,20 +1,8 @@
 version: "3"
 
 services:
-  itho-api:
-    image: philipsen/itho-api
-    build: ./itho-api
-    command: nodemon server.js
-    volumes:
-      - ./itho-api:/app
-      - /app/node_modules
-    ports:
-      - "8080:8080"
-    networks:
-      - front
-
   itho-api-ts:
-    image: philipsen/itho-api-ts
+    image: philipsen/itho-api-ts:v0.0.1
     build: ./itho-api-ts
     volumes:
       - ./itho-api-ts:/app
