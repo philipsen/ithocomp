@@ -1,4 +1,4 @@
-pipeline {
+
   node {
     def app
 
@@ -34,5 +34,5 @@ pipeline {
       }
     }
   }
-}
+
 
