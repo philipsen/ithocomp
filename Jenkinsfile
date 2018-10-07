@@ -11,8 +11,8 @@ pipeline {
         echo 'hi'
         // sh """
         // echo "print info"
-        echo "branch = ${gitBranch}"
-        echo "commit = ${gitCommit}"
+        echo 'branch = ${gitBranch}'
+        echo 'commit = ${gitCommit}'
         // """
       }
     }
