@@ -12,7 +12,7 @@ pipeline {
         // sh """
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
-        echo 'commit = ${gitCommit}'
+        echo "commit = ${GIT_COMMIT}"
         // """
       }
     }
