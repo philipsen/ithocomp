@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: itho-api
-        image: philipsen/itho-api-ts:{{ .Values.imageTag }}
+        image: "philipsen/itho-api-ts:{{ .Values.imageTag }}"
         imagePullPolicy: Always
         env:
         - name:  MQTT_HOST

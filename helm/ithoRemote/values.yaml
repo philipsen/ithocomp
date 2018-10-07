@@ -3,5 +3,5 @@ imageTag: v0.0.1
 
 mqttHost: 167.99.32.103
 mqttUser: itho
-mqttPassword: aapnootmies 
-monguUri: mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test?retryWrites=false
+mqttPasswd: aapnootmies 
+mongoUri: mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test?retryWrites=false
