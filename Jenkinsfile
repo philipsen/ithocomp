@@ -9,7 +9,8 @@ pipeline {
     stage('Cloning Git') {
       steps {
         //git clone "https://github.com/philipsen/ithocomp.git"
-        ls -lR
+        echo 'here'
+        sh 'ls -lR'
       }
     }
     // stage('Building image') {
