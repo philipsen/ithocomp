@@ -9,6 +9,7 @@ pipeline {
     stage('Info') {
       steps {
         sh """
+        echo "print info"
         echo "branch = ${gitBranch}"
         echo "commit = ${gitCommit}"
         """
