@@ -6,15 +6,16 @@ pipeline {
   }
   agent any
   stages {
-    // stage('Info') {
-    //   steps {
-    //     sh """
-    //     echo "print info"
-    //     echo "branch = ${gitBranch}"
-    //     echo "commit = ${gitCommit}"
-    //     """
-    //   }
-    // }
+    stage('Info') {
+      steps {
+        echo 'hi'
+        // sh """
+        // echo "print info"
+        // echo "branch = ${gitBranch}"
+        // echo "commit = ${gitCommit}"
+        // """
+      }
+    }
     stage('Build Frontend') {
       steps {
         script {
