@@ -36,6 +36,22 @@ pipeline {
         }
       }
     }
+    stage('Build Backend') {
+      steps {
+        script {
+          dockerImageBack = docker.build("philipsen/itho-api-ts", "itho-api-ts")
+        }
+      }
+    }
+    stage('Deploy Backend') {
+      steps {
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentials') {
+            dockerImageBack.push()
+          }
+        }
+      }
+    }
     // stage('Deploy Image') {
     //   steps{
     //     script {
