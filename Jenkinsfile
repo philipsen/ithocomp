@@ -6,13 +6,12 @@ pipeline {
   }
   agent any
   stages {
-    def myRepo = checkout scm
     stage('Info') {
       steps {
         echo 'hi'
         // sh """
         // echo "print info"
-        echo "branch = $GIT_BRANCH"
+        echo "branch = ${GIT_BRANCH}"
         echo 'commit = ${gitCommit}'
         // """
       }
