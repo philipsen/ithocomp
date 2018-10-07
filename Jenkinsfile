@@ -13,6 +13,13 @@ pipeline {
         sh 'ls -lR'
       }
     }
+    stage('Build') {
+      steps {
+        script {
+          dockerImage = docker.build("itho-app", "-f itho-app/Dockerfile")
+        }
+      }
+    }
     // stage('Building image') {
     //   steps{
     //     script {
