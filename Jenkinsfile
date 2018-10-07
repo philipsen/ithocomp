@@ -1,11 +1,32 @@
 pipeline {
+  environment {
+    registry = "philipsen/itho-app"
+    registryCredential = "dockerhub"
+    dockerImage = ""
+  }
   agent any
   stages {
-    stage('Setup') {
+    stage('Cloning Git') {
       steps {
-        echo 'Run Build2'
-        sh 'ls -lR'
+        git "https://github.com/philipsen/ithocomp.git"
+        ls -lR
       }
     }
+    // stage('Building image') {
+    //   steps{
+    //     script {
+    //       dockerImage = docker.build registry + :"$BUILD_NUMBER"
+    //     }
+    //   }
+    // }
+    // stage('Deploy Image') {
+    //   steps{
+    //     script {
+    //       docker.withRegistry( '', registryCredential ) {
+    //         dockerImage.push()
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
