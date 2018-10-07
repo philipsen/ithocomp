@@ -7,10 +7,5 @@ pipeline {
         sh 'ls -lR'
       }
     }
-    stage('API') {
-      steps {
-        sh '''docker build ./itho-api-ts'''
-      }
-    }
   }
 }
