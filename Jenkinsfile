@@ -30,7 +30,7 @@ pipeline {
     stage('Deploy Frontend') {
       steps {
         script {
-          docker.withRegistry('https://registry.hub.docker.com', dockerCredentials) {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentials') {
             dockerImage.push()
           }
         }
