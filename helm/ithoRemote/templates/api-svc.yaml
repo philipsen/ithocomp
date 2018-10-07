@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: itho-api
+spec:
+  selector:
+    app: itho-api
+  ports:
+  - port: 8080
+    targetPort: 8080

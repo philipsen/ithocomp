@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itho-app
+spec:
+  selector:
+    matchLabels:
+      app: itho-app
+  template:
+    metadata:
+      labels:
+        app: itho-app
+    spec:
+      containers:
+      - name: itho-app
+        image: philipsen/itho-app
+        ports:
+        - containerPort: 80

@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: itho-app
+spec:
+  selector:
+    app:  itho-app
+  type:  LoadBalancer
+  ports:
+  - name:  ext
+    port:  80
+    targetPort:  80
