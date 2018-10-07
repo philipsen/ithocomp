@@ -16,7 +16,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          dockerImage = docker.build("itho-app", "-f itho-app/Dockerfile")
+          dockerImage = docker.build("philipsen/itho-app", "itho-app")
         }
       }
     }
