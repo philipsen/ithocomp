@@ -13,7 +13,7 @@ pipeline {
         sh 'ls -lR'
       }
     }
-    stage('Build') {
+    stage('Build Frontend') {
       steps {
         script {
           dockerImage = docker.build("philipsen/itho-app", "itho-app")
@@ -27,6 +27,15 @@ pipeline {
     //     }
     //   }
     // }
+    stage('Deploy Frontend') {
+      steps {
+        script {
+          docker.withRegistry('', dockerCredentials) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
     // stage('Deploy Image') {
     //   steps{
     //     script {
