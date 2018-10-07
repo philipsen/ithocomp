@@ -8,7 +8,8 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git clone "https://github.com/philipsen/ithocomp.git"
+        //git clone "https://github.com/philipsen/ithocomp.git"
+        ls -lR
       }
     }
     // stage('Building image') {
