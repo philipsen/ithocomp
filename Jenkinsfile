@@ -10,7 +10,6 @@ pipeline {
       steps {
         echo 'hi'
         step {
-          def tag = "a"
           echo tag  
         }
         
