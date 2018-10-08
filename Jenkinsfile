@@ -9,20 +9,19 @@ pipeline {
     stage('Info') {
       steps {
         echo 'hi'
-        lab = sh 'LAB=`git rev-parse --short HEAD`'
+        sh 'LAB=`git rev-parse --short HEAD`'
         // sh """
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
         echo "commit = ${GIT_COMMIT}"
         //echo "lab = ${LAB}"
         // """
-        echo lab
       }
     }
     stage('Build Frontend') {
       steps {
         script {
-          dockerImage = docker.build("philipsen/itho-app", "itho-app")
+          dockerImage = docker.build("philipsen/itho-app:${GIT_COMMIT}", "itho-app")
         }
       }
     }
