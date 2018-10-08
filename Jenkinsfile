@@ -14,7 +14,7 @@ pipeline {
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
         echo "commit = ${GIT_COMMIT}"
-        echo "lab = ${LAB}"
+        //echo "lab = ${LAB}"
         // """
       }
     }
