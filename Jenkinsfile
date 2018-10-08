@@ -10,7 +10,6 @@ pipeline {
       steps {
         echo 'hi'
         sh 'LAB=`git rev-parse --short HEAD`'
-        echo tag
         // sh """
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
