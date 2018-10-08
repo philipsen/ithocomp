@@ -9,8 +9,11 @@ pipeline {
     stage('Info') {
       steps {
         echo 'hi'
-        def tag = "a"
-        echo tag
+        step {
+          def tag = "a"
+          echo tag  
+        }
+        
         // sh """
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
