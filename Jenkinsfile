@@ -9,7 +9,7 @@ pipeline {
     stage('Info') {
       steps {
         echo 'hi'
-        def tag = "`git rev-parse --short HEAD`"
+        def tag = "a"
         echo tag
         // sh """
         // echo "print info"
