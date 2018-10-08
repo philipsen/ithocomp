@@ -9,10 +9,8 @@ pipeline {
     stage('Info') {
       steps {
         echo 'hi'
-        step {
-          echo tag  
-        }
-        
+        sh 'git rev-parse --short HEAD'
+        echo tag
         // sh """
         // echo "print info"
         echo "branch = ${GIT_BRANCH}"
