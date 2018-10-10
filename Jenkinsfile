@@ -6,10 +6,22 @@ pipeline {
   }
   agent any
   stages {
+    stage('Info') {
+      steps {
+        echo 'hi'
+        sh 'LAB=`git rev-parse --short HEAD`'
+        // sh """
+        // echo "print info"
+        echo "branch = ${GIT_BRANCH}"
+        echo "commit = ${GIT_COMMIT}"
+        //echo "lab = ${LAB}"
+        // """
+      }
+    }
     stage('Build Frontend') {
       steps {
         script {
-          dockerImage = docker.build("philipsen/itho-app", "itho-app")
+          dockerImage = docker.build("philipsen/itho-app:${GIT_COMMIT}", "itho-app")
         }
       }
     }
@@ -25,7 +37,7 @@ pipeline {
     stage('Build Backend') {
       steps {
         script {
-          dockerImageBack = docker.build("philipsen/itho-api-ts", "itho-api-ts")
+          dockerImageBack = docker.build("philipsen/itho-api-ts:${GIT_COMMIT}", "itho-api-ts")
         }
       }
     }
