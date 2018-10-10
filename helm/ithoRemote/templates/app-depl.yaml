@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: itho-app
-        image: philipsen/itho-app
+        image: "philipsen/itho-app:{{ .Values.imageTag }}"
         ports:
         - containerPort: 80
