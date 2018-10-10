@@ -37,7 +37,7 @@ pipeline {
     stage('Build Backend') {
       steps {
         script {
-          dockerImageBack = docker.build("philipsen/itho-api-ts:${GIT_COMMIT} ", "itho-api-ts")
+          dockerImageBack = docker.build("philipsen/itho-api-ts:${GIT_COMMIT}", "itho-api-ts")
         }
       }
     }
