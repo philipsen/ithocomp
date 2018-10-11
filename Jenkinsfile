@@ -1,5 +1,6 @@
 
 node {
+  def scmVars = checkout scm
   stage('Info') {
     echo 'hi'
     sh 'LAB=`git rev-parse --short HEAD`'
