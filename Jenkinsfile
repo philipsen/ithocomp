@@ -5,7 +5,7 @@ node {
 
   stage('Info') {
     def commitHash = scmVars.GIT_COMMIT
-    echo 'hi ${commitHash}'
+    echo "hi ${commitHash}"
     sh 'LAB=`git rev-parse --short HEAD`'
 //         // sh """
 //         // echo "print info"
@@ -15,7 +15,7 @@ node {
 //         // """
   }
   stage('Build') {
-    echo 'hi2 ${lab}'
+    echo "hi2 ${lab}"
     dockerImage = docker.build("philipsen/itho-app", "itho-app")
   } 
 }
