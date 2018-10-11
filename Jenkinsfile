@@ -14,6 +14,8 @@ node {
 //         // """
   }
   stage('Build') {
+    def lab = sh "git rev-parse --short HEAD"
+    echo 'hi2 ${lab}'
     dockerImage = docker.build("philipsen/itho-app", "itho-app")
   } 
 }
