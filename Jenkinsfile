@@ -12,6 +12,9 @@ node {
 //         echo "commit = ${GIT_COMMIT}"
 //         //echo "lab = ${LAB}"
 //         // """
+  }
+  stage('Build') {
+    dockerImage = docker.build("philipsen/itho-app:${GIT_COMMIT}", "itho-app")
   } 
 }
 // pipeline {
