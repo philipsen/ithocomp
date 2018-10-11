@@ -15,9 +15,7 @@ node {
 //         // """
   }
   stage('Build') {
-    def lab = sh "echo `git rev-parse --short HEAD`"
-    echo "hi2 ${lab}"
-    dockerImage = docker.build("philipsen/itho-app", "itho-app")
+    dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
   } 
 }
 // pipeline {
