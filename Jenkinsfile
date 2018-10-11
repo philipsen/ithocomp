@@ -1,8 +1,10 @@
 
 node {
   def scmVars = checkout scm
+  def commitHash = scmVars.GIT_COMMIT
+
   stage('Info') {
-    echo 'hi'
+    echo 'hi ${commitHash}'
     sh 'LAB=`git rev-parse --short HEAD`'
 //         // sh """
 //         // echo "print info"
