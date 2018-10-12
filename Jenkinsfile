@@ -15,22 +15,22 @@ node {
     echo "hi ${commitHash}"
     echo "short: ${gitShort}"
   }
-  // stage('Build Front') {
-  //   dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
-  // } 
-  // stage('Deploy Frontend') {
-  //   docker.withRegistry(registry, registryCredential) {
-  //     dockerImage.push()
-  //   }
-  // }
-  // stage('Build Back') {
-  //   dockerImage = docker.build("philipsen/itho-api-ts:${commitHash}", "itho-api-ts")
-  // }
-  // stage('Deploy Back') {
-  //   docker.withRegistry(registry, registryCredential) {
-  //     dockerImage.push()
-  //   }
-  // }
+  stage('Build Front') {
+    dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
+  } 
+  stage('Deploy Frontend') {
+    docker.withRegistry(registry, registryCredential) {
+      dockerImage.push()
+    }
+  }
+  stage('Build Back') {
+    dockerImage = docker.build("philipsen/itho-api-ts:${commitHash}", "itho-api-ts")
+  }
+  stage('Deploy Back') {
+    docker.withRegistry(registry, registryCredential) {
+      dockerImage.push()
+    }
+  }
   stage('Install') {
     withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
       remote.user = wim
