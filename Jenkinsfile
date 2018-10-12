@@ -11,25 +11,25 @@ node {
   remote.host = "MacBook-Wim"
   remote.allowAnyHosts = true
 
-  stage('Info') {
-    echo "hi ${commitHash}"
-  }
-  stage('Build Front') {
-    dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
-  } 
-  stage('Deploy Frontend') {
-    docker.withRegistry(registry, registryCredential) {
-      dockerImage.push()
-    }
-  }
-  stage('Build Back') {
-    dockerImage = docker.build("philipsen/itho-api-ts:${commitHash}", "itho-api-ts")
-  }
-  stage('Deploy Back') {
-    docker.withRegistry(registry, registryCredential) {
-      dockerImage.push()
-    }
-  }
+  // stage('Info') {
+  //   echo "hi ${commitHash}"
+  // }
+  // stage('Build Front') {
+  //   dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
+  // } 
+  // stage('Deploy Frontend') {
+  //   docker.withRegistry(registry, registryCredential) {
+  //     dockerImage.push()
+  //   }
+  // }
+  // stage('Build Back') {
+  //   dockerImage = docker.build("philipsen/itho-api-ts:${commitHash}", "itho-api-ts")
+  // }
+  // stage('Deploy Back') {
+  //   docker.withRegistry(registry, registryCredential) {
+  //     dockerImage.push()
+  //   }
+  // }
   stage('Install') {
     withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
         remote.user = wim
@@ -41,7 +41,7 @@ node {
             sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
             sshScript remote: remote, script: 'abc.sh'
             sshRemove remote: remote, path: 'abc.sh'
-            sshPut remote: remote, from: 'helm', into: '/tmp/helm'
+            sshPut remote: remote, from: 'helm', into: '/tmp'
 
         }
     }
