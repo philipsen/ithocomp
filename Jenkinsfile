@@ -43,7 +43,7 @@ node {
           // sshRemove remote: remote, path: 'abc.sh'
       sshRemove remote: remote, path: '/tmp/helm', failOnError: false
       sshPut remote: remote, from: 'helm', into: '/tmp'
-      sshCommand remote: remote, command: "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${commitHash}  --debug --dry-run"
+      sshCommand remote: remote, command: "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${commitHash}"
         //}
     }
   }
