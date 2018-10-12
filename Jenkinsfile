@@ -6,6 +6,11 @@ node {
   def registryCredential = "dockerCredentials"
   def dockerImage = ""
 
+  def remote = [:]
+  remote.name = "node-1"
+  remote.host = "MacBook-Wim"
+  remote.allowAnyHosts = true
+
   stage('Info') {
     echo "hi ${commitHash}"
   }
@@ -25,6 +30,21 @@ node {
       dockerImage.push()
     }
   }
+  stage('Install') {
+    withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
+        remote.user = wim
+        remote.identityFile = identity
+        stage("SSH Steps Rocks!") {
+            writeFile file: 'abc.sh', text: 'ls'
+            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
+            sshPut remote: remote, from: 'abc.sh', into: '.'
+            sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
+            sshScript remote: remote, script: 'abc.sh'
+            sshRemove remote: remote, path: 'abc.sh'
+        }
+    }
+  }
+
 }
 // pipeline {
 //   environment {
