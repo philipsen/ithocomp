@@ -2,7 +2,9 @@
 node {
   def scmVars = checkout scm
   def commitHash = scmVars.GIT_COMMIT
-
+  def registry = "https://registry.hub.docker.com"
+  def registryCredential = "dockerCredentials"
+  def dockerImage = ""
   //def lab = sh "echo `git rev-parse --short HEAD`"
 
   stage('Info') {
@@ -15,9 +17,22 @@ node {
 //         //echo "lab = ${LAB}"
 //         // """
   }
-  stage('Build') {
+  stage('Build Front') {
     dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
   } 
+  stage('Deploy Frontend') {
+    docker.withRegistry(registry, registryCredential) {
+      dockerImage.push()
+    }
+  }
+  stage('Build Back') {
+    dockerImage = docker.build("philipsen/itho-app-ts:${commitHash}", "itho-app-ts")
+  }
+  stage('Deploy Back') {
+    docker.withRegistry(registry, registryCredential) {
+      dockerImage.push()
+    }
+  }
 }
 // pipeline {
 //   environment {
