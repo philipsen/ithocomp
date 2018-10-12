@@ -41,6 +41,7 @@ node {
           // sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
           // sshScript remote: remote, script: 'abc.sh'
           // sshRemove remote: remote, path: 'abc.sh'
+      sshRemote remote: remote, path: '/tmp/helm'
       sshPut remote: remote, from: 'helm', into: '/tmp'
       sshCommand remote: remote, "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${commitHash}  --debug --dry-run"
         //}
