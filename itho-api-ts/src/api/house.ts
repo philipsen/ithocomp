@@ -12,34 +12,6 @@ import logger from '../util/logger';
 import { House } from '../models/house2';
 
 
-interface IRemoteId {
-    name: String;
-    bytes: String;
-}
-const remotes: IRemoteId[] = [
-    { name: 'wmt6/main',    bytes: '52:50:b9' },
-    { name: 'wmt6/second',  bytes: '74:f3:af'},
-    { name: 'wmt40/main',   bytes: '52:4c:6d' },
-    { name: 'wmt40/second', bytes: '74:f3:af'},
-    { name: 'wmt28/main',   bytes: '52:4d:45' },
-    { name: 'wmt28/second', bytes: '74:f3:af'}
-];
-
-interface IRemoteCommand {
-    name: String;
-    bytes: String;
-}
-const remoteCommands: IRemoteCommand[] = [
-    { name: 'eco', bytes:      '22:f8:3:0:1:2'},
-    { name: 'comfort', bytes:  '22:f8:3:0:2:2'},
-    { name: 'cook1', bytes:    '22:f3:5:0:2:1e:2:3'},
-    { name: 'cook2', bytes:    '22:f3:5:0:2:3c:2:3'},
-    { name: 's_timer1', bytes: '22:f3:03:63:80:01'},
-    { name: 's_timer2', bytes: '22:f3:03:63:80:02'},
-    { name: 's_timer3', bytes: '22:f3:03:63:80:03'},
-    { name: 's_auto', bytes:   '22:f1:03:63:03:04'}
-];
-
 export class HouseApi {
 
     public static create(router: Router) {
@@ -55,12 +27,6 @@ export class HouseApi {
         router.get('/house/status/:name', (req: Request, res: Response, next: NextFunction) => {
             new HouseApi().getHouseState(req, res, next);
         });
-        router.get('/command/:house/:room/:cmd', (req: Request, res: Response, next: NextFunction) => {
-            new HouseApi().sendRemoteCommand(req, res, next);
-        });
-        router.get('/command/sendBytes/:house/:remote/:cmd', (req: Request, res: Response, next: NextFunction) => {
-            new HouseApi().sendRemoteCommandBytes(req, res, next);
-        });
         router.put('/house/logging/:house/:value', (req: Request, res: Response, next: NextFunction) => {
             new HouseApi().enableLogging(req, res, next);
         });
@@ -71,38 +37,6 @@ export class HouseApi {
         const message = req.params.house + '/set/≈';
         const subject = 'printNonRemote/' + req.params.value;
         PubsubProxy.getInstance().publish(message, subject);
-    }
-
-    sendRemoteCommand(req: Request, res: Response, next: NextFunction): any {
-        console.log('api send command', req.params.house, req.params.room, req.params.cmd);
-        WebappClickEvent.create({
-            house: req.params.house,
-            room: req.params.room,
-            command: req.params.cmd
-        });
-        res.send(JSON.stringify('OK'));
-        const subject = req.params.house + '/command/' + req.params.room;
-        const message = req.params.cmd;
-        PubsubProxy.getInstance().publish(subject, message);
-        next();
-    }
-
-    sendRemoteCommandBytes(req: Request, res: Response, next: NextFunction): any {
-        console.log('api send command byes', req.params.house, req.params.remote, req.params.cmd);
-        const remoteKey = req.params.house + '/' + req.params.remote;
-        const remoteId = remotes.find(r => r.name == remoteKey).bytes;
-        const remoteCommand = remoteCommands.find(r => r.name == req.params.cmd).bytes;
-
-        SendCommandEvent.create({
-            house: req.params.house,
-            remote: req.params.remote,
-            command: req.params.cmd
-        });
-        res.json({ result: 'OK' });
-        const subject = 'itho/' + req.params.house + '/send';
-        const message = remoteId + '/' + remoteCommand;
-        PubsubProxy.getInstance().publish(subject, message);
-        next();
     }
 
     getHouseEvents(req: Request, res: Response, next: NextFunction): any {

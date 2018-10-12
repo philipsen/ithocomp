@@ -11,6 +11,7 @@ import * as http from 'http';
 import logger from './util/logger';
 
 import { MONGODB_URI } from './util/secrets';
+import { RemoteApi } from './api/remote';
 
 export class Server {
 
@@ -39,15 +40,13 @@ export class Server {
             res.json({ announcement: 'Welcome to the api' });
             next();
         });
-
         HouseApi.create(router);
-
+        RemoteApi.create(router);
         this.app.use('/api', router);
-
     }
 
     public config() {
-        this.port = 8080;
+        this.port = 8081;
         dotenv.config({ path: '.env.example' });
         const mongoUrl = MONGODB_URI;
         mongoose.connect(mongoUrl);
@@ -62,14 +61,13 @@ export class Server {
         this.root = path.resolve(__dirname, '../../itho-app/dist/itho-app');
 
     }
-    // this.app.use(errorHandler());
+
     routes(): void {
         this.app.use(express.static(this.root));
 
         const router = express.Router();
         router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
             const isApi = req.baseUrl.startsWith('/api');
-            // logger.debug(`orig url= ${isApi}`);
             if (isApi) { next(); return;
             }
             const p = path.join(this.root, 'index.html');

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IthoEvent } from '../../model/itho-event';
 
-const printKeys = ['level', 'room', 'command'];
+const printKeys = ['level', 'room', 'command', 'remote'];
 
 
 @Component({
@@ -21,8 +21,10 @@ export class AdminHouseEventComponent implements OnInit {
   }
 
   ts(): string {
-    var k2 = Object.keys(this.event).filter(value => -1 !== printKeys.indexOf(value));
-    var s = k2.map(value => value + ': ' + this.event[value]);
-    return s.join(', ');
+    // console.log('event = ', this.event, Object.keys(this.event));
+    const keylist = Object.keys(this.event).filter(value => -1 !== printKeys.indexOf(value));
+    // console.log('kl = ', keylist);
+    const str = keylist.map(value => value + ': ' + this.event[value]);
+    return str.join(', ');
   }
 }
