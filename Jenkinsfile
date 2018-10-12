@@ -5,7 +5,7 @@ node {
   def registry = "https://registry.hub.docker.com"
   def registryCredential = "dockerCredentials"
   def dockerImage = ""
-  
+
   stage('Info') {
     echo "hi ${commitHash}"
   }
@@ -18,7 +18,7 @@ node {
     }
   }
   stage('Build Back') {
-    dockerImage = docker.build("philipsen/itho-app-ts:${commitHash}", "itho-app-ts")
+    dockerImage = docker.build("philipsen/itho-api-ts:${commitHash}", "itho-api-ts")
   }
   stage('Deploy Back') {
     docker.withRegistry(registry, registryCredential) {
