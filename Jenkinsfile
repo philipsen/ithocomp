@@ -32,12 +32,21 @@ node {
     }
   }
   stage('Install') {
-    withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
-      remote.user = wim
-      remote.identityFile = identity
-      sshRemove remote: remote, path: '/tmp/helm', failOnError: false
-      sshPut remote: remote, from: 'helm', into: '/tmp'
-      sshCommand remote: remote, command: "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
+    if (env.BRANCH_NAME == 'master') {
+      withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
+        remote.user = wim
+        remote.identityFile = identity
+        sshRemove remote: remote, path: '/tmp/helm', failOnError: false
+        sshPut remote: remote, from: 'helm', into: '/tmp'
+        sshCommand remote: remote, command: "kubectl config use-context PhiAks; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
+      }
+    } else {
+       withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
+        remote.user = wim
+        remote.identityFile = identity
+        sshRemove remote: remote, path: '/tmp/helm', failOnError: false
+        sshPut remote: remote, from: 'helm', into: '/tmp'
+        sshCommand remote: remote, command: "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"     
     }
   }
 }
