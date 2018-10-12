@@ -32,18 +32,18 @@ node {
   // }
   stage('Install') {
     withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
-        remote.user = wim
-        remote.identityFile = identity
-        stage("SSH Steps Rocks!") {
-            writeFile file: 'abc.sh', text: 'ls'
-            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
-            sshPut remote: remote, from: 'abc.sh', into: '.'
-            sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
-            sshScript remote: remote, script: 'abc.sh'
-            sshRemove remote: remote, path: 'abc.sh'
-            sshPut remote: remote, from: 'helm', into: '/tmp'
-
-        }
+      remote.user = wim
+      remote.identityFile = identity
+      //stage("SSH Steps Rocks!") {
+          // writeFile file: 'abc.sh', text: 'ls'
+          // sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
+          // sshPut remote: remote, from: 'abc.sh', into: '.'
+          // sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
+          // sshScript remote: remote, script: 'abc.sh'
+          // sshRemove remote: remote, path: 'abc.sh'
+      sshPut remote: remote, from: 'helm', into: '/tmp'
+      sshCommand remote: remote, "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${commitHash}  --debug --dry-run"
+        //}
     }
   }
 
