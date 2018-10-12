@@ -41,6 +41,9 @@ node {
             sshGet remote: remote, from: 'abc.sh', into: 'bac.sh', override: true
             sshScript remote: remote, script: 'abc.sh'
             sshRemove remote: remote, path: 'abc.sh'
+
+            sshPut remote: remote, from: 'helm', into: '/tmp/helm'
+            
         }
     }
   }
