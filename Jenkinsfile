@@ -5,17 +5,9 @@ node {
   def registry = "https://registry.hub.docker.com"
   def registryCredential = "dockerCredentials"
   def dockerImage = ""
-  //def lab = sh "echo `git rev-parse --short HEAD`"
-
+  
   stage('Info') {
     echo "hi ${commitHash}"
-    sh 'LAB=`git rev-parse --short HEAD`'
-//         // sh """
-//         // echo "print info"
-//         echo "branch = ${GIT_BRANCH}"
-//         echo "commit = ${GIT_COMMIT}"
-//         //echo "lab = ${LAB}"
-//         // """
   }
   stage('Build Front') {
     dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
