@@ -10,10 +10,11 @@ node {
   remote.name = "node-1"
   remote.host = "MacBook-Wim"
   remote.allowAnyHosts = true
-
-  // stage('Info') {
-  //   echo "hi ${commitHash}"
-  // }
+  def gitShort = sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
+  stage('Info') {
+    echo "hi ${commitHash}"
+    echo "short: ${gitShort}"
+  }
   // stage('Build Front') {
   //   dockerImage = docker.build("philipsen/itho-app:${commitHash}", "itho-app")
   // } 
