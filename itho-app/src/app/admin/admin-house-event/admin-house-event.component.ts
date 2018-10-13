@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IthoEvent } from '../../model/itho-event';
 
-const printKeys = ['level', 'room', 'command', 'remote'];
+const printKeys = ['level', 'room', 'command', 'remote', 'sender'];
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: '[admin-house-event]',
   templateUrl: './admin-house-event.component.html',
   styleUrls: ['./admin-house-event.component.css']
