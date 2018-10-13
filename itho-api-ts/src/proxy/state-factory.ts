@@ -9,10 +9,6 @@ import { IStoveStateEvent } from '../interfaces/istove-state-event';
 import { IWebappClickEvent } from '../interfaces/iwebapp-click-event';
 
 export class StateFactory {
-    // getState(events: IEventModel[]): IHouseState {
-    //     throw new Error("Method not implemented.");
-    // }
-
 
     getState(events: IEventModel[]) {
         let state: IHouseState = {
