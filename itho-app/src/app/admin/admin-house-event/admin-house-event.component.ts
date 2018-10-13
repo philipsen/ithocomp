@@ -21,10 +21,9 @@ export class AdminHouseEventComponent implements OnInit {
   ngOnInit() {
   }
 
-  ts(): string {
-    // console.log('event = ', this.event, Object.keys(this.event));
+  toString(): string {
+    // select the keys in the object that are in the print list
     const keylist = Object.keys(this.event).filter(value => -1 !== printKeys.indexOf(value));
-    // console.log('kl = ', keylist);
     const str = keylist.map(value => value + ': ' + this.event[value]);
     return str.join(', ');
   }

@@ -4,7 +4,7 @@ import mqtt from 'mqtt';
 import { MQTT_HOST, MQTT_USER, MQTT_PASSWD } from '../util/secrets';
 import { House } from '../models/house2';
 import { remotes, remoteCommands } from '../models/remotes-defenitions';
-import { SendCommandEvent } from '../models/send-command-event';
+import { StateProxy } from './state-proxy';
 
 export class PubsubProxy {
     private static instance: PubsubProxy;
@@ -45,22 +45,16 @@ export class PubsubProxy {
                 logger.debug(`got send ${payloadSubstrings[1]} -> ${payloadSubstrings[2]} - ${payloadSubstrings[3]}`);
                 const sender = payloadSubstrings[1];
                 const remoteId = remotes.find(r => r.bytes === payloadSubstrings[2]);
+                const remoteCommand = remoteCommands.find(r => r.bytes == payloadSubstrings[3]);
                 if (remoteId == undefined) {
                     logger.warn(`received command from unkonw remote: ${payloadSubstrings[2]}`);
+                    return;
                 }
-                const remoteCommand = remoteCommands.find(r => r.bytes == payloadSubstrings[3]);
                 if (remoteCommand == undefined) {
                     logger.warn(`received unknown remote command: ${payloadSubstrings[3]}`);
                     return;
                 }
-                SendCommandEvent.create({
-                    house: houseId,
-                    remote: remoteId.name,
-                    sender: sender,
-                    command: remoteCommand.name
-                }).then(res => {
-                    logger.debug(`added event: ${res}`);
-                });
+                StateProxy.getInstance().createEvent(houseId, remoteId, sender, remoteCommand);
             }
         });
     }
@@ -76,3 +70,4 @@ export class PubsubProxy {
         return PubsubProxy.instance;
     }
 }
+
