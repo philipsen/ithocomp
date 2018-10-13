@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm">
       <h2>Itho Remote {{ house.name }} </h2>
-      <h3>Status: {{ state.ventilation }}</h3>
+      <h3>Status: <app-itho-state></app-itho-state></h3>
     </div>
   </div>
   <div class="row">
@@ -11,7 +11,7 @@
       <div class="card">
         <div class="card-body">
           <div class="btn-block">
-          <app-itho-button *ngFor="let b of buttons" [button]="b" [house]="house.name" (voted)="onVoted($event)">
+          <app-itho-button *ngFor="let b of buttons" [button]="b" [house]="house.name">
             </app-itho-button>
           </div>
         </div>

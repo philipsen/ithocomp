@@ -15,10 +15,11 @@ export class RemoteApi {
         const remoteKey = req.params.house + '/' + req.params.remote;
         const remoteId = remotes.find(r => r.name == remoteKey).bytes;
         const remoteCommand = remoteCommands.find(r => r.name == req.params.cmd).bytes;
-        res.json({ result: 'OK' });
         const subject = 'itho/' + req.params.house + '/send';
         const message = remoteId + '/' + remoteCommand;
         PubsubProxy.getInstance().publish(subject, message);
+
+        res.json({ result: 'OK' });
         next();
     }
 }

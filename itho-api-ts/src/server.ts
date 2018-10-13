@@ -1,22 +1,28 @@
 
 import express from 'express';
+
 import mongoose = require('mongoose');
 import dotenv from 'dotenv';
 import { HouseApi } from './api/house';
 
 import * as path from 'path';
 import * as http from 'http';
+import socketIo from 'socket.io';
 
 
 import logger from './util/logger';
 
 import { MONGODB_URI } from './util/secrets';
 import { RemoteApi } from './api/remote';
+import { StateUpdate } from './models/state-update';
+import { SocketProxy } from './proxy/socket-proxy';
 
 export class Server {
 
     public app: express.Application;
     private server: any;
+
+    private io: SocketIO.Server;
     private port: any;
     private root: string = '';
 
@@ -30,6 +36,7 @@ export class Server {
         this.server = http.createServer(this.app);
         this.api();
         this.routes();
+        this.sockets();
         this.listen();
     }
 
@@ -77,6 +84,10 @@ export class Server {
         this.app.use('*', router);
     }
 
+    private sockets(): void {
+        this.io = socketIo(this.server);
+    }
+
     private listen(): void {
         this.server.listen(this.port);
 
@@ -87,5 +98,7 @@ export class Server {
         this.server.on('listening', () => {
             logger.info(`Http Server listening on port ${this.port}`);
         });
+
+        SocketProxy.getInstance().init(this.io);
     }
 }
