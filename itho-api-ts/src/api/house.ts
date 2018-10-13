@@ -1,17 +1,9 @@
 import { Router, NextFunction, Request, Response } from 'express';
-import { IthoEvent, IEventModel } from '../models/itho-event';
+import { IthoEvent } from '../models/itho-event';
 import { IHouseState } from '../interfaces/ihouse-state';
-import { IWebappClickEvent } from '../interfaces/iwebapp-click-event';
-import { IStoveStateEvent } from '../interfaces/istove-state-event';
-import { WebappClickEvent } from '../models/webapp-click-event';
-import { StoveStateEvent } from '../models/stove-state-event';
 import { PubsubProxy } from '../proxy/pubsub-proxy';
-import { SendCommandEvent } from '../models/send-command-event';
-import { ISendCommandEvent } from '../interfaces/isend-command-event';
-import logger from '../util/logger';
 import { House } from '../models/house2';
 import { StateFactory } from '../proxy/state-factory';
-
 
 export class HouseApi {
 
