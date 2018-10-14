@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { SocketEvent } from '../model/socket-event';
 
 
-const SERVER_URL = 'http://localhost:8081';
+const SERVER_URL = 'http://localhost';
 
 @Injectable({
   providedIn: 'root'
