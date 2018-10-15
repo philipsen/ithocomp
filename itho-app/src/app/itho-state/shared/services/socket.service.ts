@@ -15,7 +15,7 @@ export class SocketService {
   private socket;
 
   public initSocket(): void {
-    this.socket = socketIo(SERVER_URL);
+    this.socket = socketIo(SERVER_URL, {transports: ['websocket']});
   }
 
   public send(message: string): void {
