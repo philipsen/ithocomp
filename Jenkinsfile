@@ -38,7 +38,7 @@ node {
         remote.identityFile = identity
         sshRemove remote: remote, path: '/tmp/helm', failOnError: false
         sshPut remote: remote, from: 'helm', into: '/tmp'
-        sshCommand remote: remote, command: "kubectl config use-context PhiAks; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
+        sshCommand remote: remote, command: "kubectl config use-context gke_thermosauh_europe-west2-a_your-first-cluster-1; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
       }
     } else {
        withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
