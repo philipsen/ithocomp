@@ -1,33 +1,18 @@
 version: "3"
 
 services:
-  # pubsub:
-  #   build: app-mqtt
-  #   networks: 
-  #     - "front"
-  #   ports: 
-  #     - "1883:1883"
-  # itho-api:
-  #   image: philipsen/itho-api
-  #   command: nodemon server.js
-  #   volumes:
-  #     - ./itho-api:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=false"
-  #   networks:
-  #     - front
+
   itho-api-ts:
-    image: philipsen/itho-api-ts
-    command: npm run watch
-    volumes:
-      - ./itho-api-ts:/app
+    build: 
+      context: itho-api-ts
+      dockerfile: Dockerfile-dev
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
-      - "MONGO_CONNECT=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=false"
+      - "MONGODB_URI_LOCAL=mongodb+srv://itho:aapnootmies@cluster0-xqsdh.mongodb.net/test2?retryWrites=false"
+      - "MQTT_HOST=167.99.32.103"
+      - MQTT_USER=itho
+      - MQTT_PASSWD=aapnootmies
     networks:
       - front
   itho-app:
@@ -46,8 +31,11 @@ services:
       context: itho-proxy
       dockerfile: Dockerfile-dev
     ports:
-      - "80:80"
+      - "81:81"
     networks:
       - front
+    depends_on: 
+      - itho-app
+      - itho-api-ts
 networks: 
   front:

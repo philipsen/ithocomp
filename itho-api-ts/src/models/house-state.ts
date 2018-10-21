@@ -1,8 +1,8 @@
-import { IHouseState } from "../interfaces/ihouse-state";
+import { IHouseState } from '../interfaces/ihouse-state';
 
 export class HouseState implements IHouseState {
-    ventilation: String;
-    ventilationBaseState: String;
+    ventilation: string;
+    ventilationBaseState: string;
     endTimeCommand: Date;
 
 }

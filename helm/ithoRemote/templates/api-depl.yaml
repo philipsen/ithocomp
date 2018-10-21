@@ -25,4 +25,4 @@ spec:
         - name: MONGODB_URI_LOCAL
           value: {{ .Values.mongoUri }}  
         ports:
-        - containerPort: 8080
+        - containerPort: 8081

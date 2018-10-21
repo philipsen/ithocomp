@@ -18,8 +18,6 @@
 //         throw new Error("Method not implemented.");
 //     }
 
-    
-
 //     private applyEvent(hs: HouseState, event: IEvent): any {
 //         switch (event.kind) {
 //             case 'WappappClickEvent':

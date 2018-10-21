@@ -1,21 +1,28 @@
 
 import express from 'express';
+
 import mongoose = require('mongoose');
 import dotenv from 'dotenv';
 import { HouseApi } from './api/house';
 
 import * as path from 'path';
 import * as http from 'http';
+import socketIo from 'socket.io';
 
 
 import logger from './util/logger';
 
 import { MONGODB_URI } from './util/secrets';
+import { RemoteApi } from './api/remote';
+import { StateUpdate } from './models/state-update';
+import { SocketProxy } from './proxy/socket-proxy';
 
 export class Server {
 
     public app: express.Application;
     private server: any;
+
+    private io: SocketIO.Server;
     private port: any;
     private root: string = '';
 
@@ -29,6 +36,7 @@ export class Server {
         this.server = http.createServer(this.app);
         this.api();
         this.routes();
+        this.sockets();
         this.listen();
     }
 
@@ -39,15 +47,13 @@ export class Server {
             res.json({ announcement: 'Welcome to the api' });
             next();
         });
-
         HouseApi.create(router);
-
+        RemoteApi.create(router);
         this.app.use('/api', router);
-
     }
 
     public config() {
-        this.port = 8080;
+        this.port = 8081;
         dotenv.config({ path: '.env.example' });
         const mongoUrl = MONGODB_URI;
         mongoose.connect(mongoUrl);
@@ -62,14 +68,13 @@ export class Server {
         this.root = path.resolve(__dirname, '../../itho-app/dist/itho-app');
 
     }
-    // this.app.use(errorHandler());
+
     routes(): void {
         this.app.use(express.static(this.root));
 
         const router = express.Router();
         router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
             const isApi = req.baseUrl.startsWith('/api');
-            // logger.debug(`orig url= ${isApi}`);
             if (isApi) { next(); return;
             }
             const p = path.join(this.root, 'index.html');
@@ -77,6 +82,10 @@ export class Server {
             res.sendFile(p);
         });
         this.app.use('*', router);
+    }
+
+    private sockets(): void {
+        this.io = socketIo(this.server);
     }
 
     private listen(): void {
@@ -89,5 +98,7 @@ export class Server {
         this.server.on('listening', () => {
             logger.info(`Http Server listening on port ${this.port}`);
         });
+
+        SocketProxy.getInstance().init(this.io);
     }
 }

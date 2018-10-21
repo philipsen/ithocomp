@@ -1,5 +1,5 @@
 export interface IHouseState {
-    ventilation: String;
-    ventilationBaseState: String;
+    ventilation: string;
+    ventilationBaseState: string;
     endTimeCommand: Date;
 }

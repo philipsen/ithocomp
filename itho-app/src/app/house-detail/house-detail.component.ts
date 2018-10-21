@@ -7,64 +7,40 @@ import { IthoState } from '../model/itho-state';
 import { IthoButton } from '../model/itho-button';
 
 @Component({
-  selector: 'app-house-detail',
-  templateUrl: './house-detail.component.html',
-  styleUrls: ['./house-detail.component.css']
+    selector: 'app-house-detail',
+    templateUrl: './house-detail.component.html',
+    styleUrls: ['./house-detail.component.css']
 })
 export class HouseDetailComponent implements OnInit {
 
-  constructor(
-    private housesService: HousesService,
-    private remoteCommandService: RemoteCommandService,
-    private route: ActivatedRoute
-  ) { }
+    constructor(
+        private housesService: HousesService,
+        private remoteCommandService: RemoteCommandService,
+        private route: ActivatedRoute
+    ) { }
 
+    house = new House;
+    buttons: IthoButton[];
 
-  house = new House;
-  state = new IthoState;
-  buttons: IthoButton[];
-
-  // public house: House;
-  ngOnInit() {
-    this.getHouse();
-    this.getState();
-    this.getButtons();
-  }
-
-  onVoted() {
-    console.log('trigger');
-    this.getState();
-  }
-
-  getHouse(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.housesService.getHouse(id)
-      .subscribe(house => this.house = house);
-  }
-
-  getState(): void {
-    console.log('get state');
-    const id = this.route.snapshot.paramMap.get('id');
-    this.housesService.getHouseStatus(id).subscribe(state => {
-      this.state = state;
+    ngOnInit() {
+        this.getHouse();
+        this.getButtons();
     }
-    );
-  }
 
-  getButtons(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.buttons = this.housesService.getButtons(id);
-  }
+    getHouse(): void {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.housesService.getHouse(id)
+            .subscribe(house => this.house = house);
+    }
 
-  sendCommand(room: string, command: string): void {
-    console.log('sendCommand');
-    this.remoteCommandService.sendCommand(this.house.name, room, command)
-      .subscribe(() => {
-        this.getState();
-      });
-  }
+    getButtons(): void {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.buttons = this.housesService.getButtons(id);
+    }
 
-  gs(): string {
-    return JSON.stringify(this.state);
-  }
+    sendCommand(room: string, command: string): void {
+        console.log('sendCommand');
+        this.remoteCommandService.sendCommand(this.house.name, room, command)
+            .subscribe(() => { });
+    }
 }
