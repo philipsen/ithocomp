@@ -8,7 +8,7 @@ node {
 
   def remote = [:]
   remote.name = "node-1"
-  remote.host = "MacBook-Wim"
+  remote.host = "MacBook-Wim.lan"
   remote.allowAnyHosts = true
   def shortHash = sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
   stage('Info') {
