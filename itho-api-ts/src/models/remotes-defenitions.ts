@@ -14,8 +14,8 @@ export const remoteCommands: IRemoteCommand[] = [
     { name: 'comfort', bytes: '22:f8:3:0:2:2' },
     { name: 'cook1', bytes: '22:f3:5:0:2:1e:2:3' },
     { name: 'cook2', bytes: '22:f3:5:0:2:3c:2:3' },
-    { name: 's_timer1', bytes: '22:f3:03:63:80:01' },
-    { name: 's_timer2', bytes: '22:f3:03:63:80:02' },
-    { name: 's_timer3', bytes: '22:f3:03:63:80:03' },
-    { name: 's_auto', bytes: '22:f1:03:63:03:04' }
+    { name: 's_timer1', bytes: '22:f3:3:63:80:1' },
+    { name: 's_timer2', bytes: '22:f3:3:63:80:2' },
+    { name: 's_timer3', bytes: '22:f3:3:63:80:3' },
+    { name: 's_auto', bytes: '22:f1:3:63:3:4' }
 ];
