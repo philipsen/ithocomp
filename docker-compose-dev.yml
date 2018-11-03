@@ -13,6 +13,8 @@ services:
       - "MQTT_HOST=167.99.32.103"
       - MQTT_USER=itho
       - MQTT_PASSWD=aapnootmies
+    volumes:
+      - ./itho-api-ts:/app
     networks:
       - front
   itho-app:
