@@ -1,6 +1,6 @@
 
 node {
-  def registryName = "philipsen"
+  def registryUserName = "philipsen"
   def scmVars = checkout scm
   def commitHash = scmVars.GIT_COMMIT
   def registry = "https://registry.hub.docker.com"
@@ -19,7 +19,7 @@ node {
   }
   
   stage('Build Front') {
-    dockerImage = docker.build("${registryName}/itho-app:${shortHash}", "itho-app")
+    dockerImage = docker.build("${registryUserName}/itho-app:${shortHash}", "itho-app")
   } 
   
   stage('Deploy Frontend') {
@@ -29,7 +29,7 @@ node {
   }
   
   stage('Build Back') {
-    dockerImage = docker.build("${registryName}/itho-api-ts:${shortHash}", "itho-api-ts")
+    dockerImage = docker.build("${registryUserName}/itho-api-ts:${shortHash}", "itho-api-ts")
   }
   
   stage('Deploy Back') {
@@ -40,6 +40,8 @@ node {
 
   stage('Install') {
     sh "helm ls"
+    sh "helm upgrade itho helm/ithoRemote --set imageTag=${shortHash}"
+
     // if (env.BRANCH_NAME == 'master') {
     //   withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
     //     remote.user = wim
