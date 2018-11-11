@@ -1,5 +1,6 @@
 
 node {
+  def registryName = "philipsen"
   def scmVars = checkout scm
   def commitHash = scmVars.GIT_COMMIT
   def registry = "https://registry.hub.docker.com"
@@ -18,7 +19,7 @@ node {
   }
   
   stage('Build Front') {
-    dockerImage = docker.build("philipsen/itho-app:${shortHash}", "itho-app")
+    dockerImage = docker.build("${registryName}/itho-app:${shortHash}", "itho-app")
   } 
   
   stage('Deploy Frontend') {
@@ -28,7 +29,7 @@ node {
   }
   
   stage('Build Back') {
-    dockerImage = docker.build("philipsen/itho-api-ts:${shortHash}", "itho-api-ts")
+    dockerImage = docker.build("${registryName}/itho-api-ts:${shortHash}", "itho-api-ts")
   }
   
   stage('Deploy Back') {
