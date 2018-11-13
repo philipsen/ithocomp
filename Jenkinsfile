@@ -42,26 +42,9 @@ node {
     def context = 'docker-for-desktop'
     if (env.BRANCH_NAME == 'master') {
       context = 'ke_thermosauh_europe-west2-a_your-first-cluster-1'
+    }
     echo "context = ${context}"
     sh "helm --kube-context=${context} ls"
     sh "helm --kube-context=${context} upgrade itho helm/ithoRemote --set imageTag=${shortHash}"
-
-    // if (env.BRANCH_NAME == 'master') {
-    //   withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
-    //     remote.user = wim
-    //     remote.identityFile = identity
-    //     sshRemove remote: remote, path: '/tmp/helm', failOnError: false
-    //     sshPut remote: remote, from: 'helm', into: '/tmp'
-    //     sshCommand remote: remote, command: "kubectl config use-context gke_thermosauh_europe-west2-a_your-first-cluster-1; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
-    //   }
-    // } else {
-    //    withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
-    //     remote.user = wim
-    //     remote.identityFile = identity
-    //     sshRemove remote: remote, path: '/tmp/helm', failOnError: false
-    //     sshPut remote: remote, from: 'helm', into: '/tmp'
-    //     sshCommand remote: remote, command: "kubectl config use-context docker-for-desktop; helm upgrade itho /tmp/helm/ithoRemote --set imageTag=${shortHash}"
-    //    }
-    // }
   }
 }
