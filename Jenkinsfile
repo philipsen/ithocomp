@@ -39,7 +39,7 @@ node {
   }
 
   stage('Install') {
-    def context = 'docker-for-desktop'
+    def context = 'jenkins-minikube'
     if (env.BRANCH_NAME == 'master') {
       context = 'ke_thermosauh_europe-west2-a_your-first-cluster-1'
     }
