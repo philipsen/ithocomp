@@ -39,8 +39,12 @@ node {
   }
 
   stage('Install') {
-    sh "helm ls"
-    sh "helm upgrade itho helm/ithoRemote --set imageTag=${shortHash}"
+    def context = 'docker-for-desktop'
+    if (env.BRANCH_NAME == 'master') {
+      context = 'ke_thermosauh_europe-west2-a_your-first-cluster-1'
+    echo "context = ${context}"
+    sh "helm --kube-context=${context} ls"
+    sh "helm --kube-context=${context} upgrade itho helm/ithoRemote --set imageTag=${shortHash}"
 
     // if (env.BRANCH_NAME == 'master') {
     //   withCredentials([sshUserPrivateKey(credentialsId: '541f2463-f1d8-4456-a34a-c0048a64893f', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'wim')]) {
