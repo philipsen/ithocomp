@@ -5,8 +5,6 @@ import { StoveStateEvent } from '../models/stove-state-event';
 import { SendCommandEvent } from '../models/send-command-event';
 import { ISendCommandEvent } from '../interfaces/isend-command-event';
 import logger from '../util/logger';
-import { IStoveStateEvent } from '../interfaces/istove-state-event';
-import { IWebappClickEvent } from '../interfaces/iwebapp-click-event';
 
 export class StateFactory {
 
@@ -27,12 +25,6 @@ export class StateFactory {
     applyEvent(state: IHouseState, event: IEventModel): IHouseState {
         console.log('apply: ', event.time, event.kind);
         switch (event.kind) {
-            // case 'WebappClick':
-            //     const clickEvent = new WebappClickEvent(event);
-            //     console.log('ce = ', clickEvent, WebappClickEvent);
-            //     return this.applyWappappClickEvent(state, clickEvent);
-            // case 'StoveStatus':
-            //     return this.applyStoveStatusEvent(state, new StoveStateEvent(event));
             case 'SendCommand':
                 return this.applySendCommandEvent(state, new SendCommandEvent(event));
             default:
