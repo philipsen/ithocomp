@@ -17,6 +17,7 @@ export class AdminHouseItemComponent implements OnInit {
   }
 
   delete(house: House): void {
+    console.log(`delete house ${house.name}`);
     this.houseService.deleteHouse(house).subscribe();
   }
 
