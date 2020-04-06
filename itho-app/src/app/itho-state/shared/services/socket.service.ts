@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { SocketEvent } from '../model/socket-event';
 
 
-const SERVER_URL = '/';
+const SERVER_URL = 'localhost:5000/';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,11 @@ export class SocketService {
   private socket;
 
   public initSocket(): void {
-    this.socket = socketIo(SERVER_URL, {transports: ['websocket']});
+    this.socket = socketIo(SERVER_URL, {transports: ['ws']});
   }
 
   public send(message: string): void {
+      console.log('init socket');
       this.socket.emit('register', message);
   }
 
